@@ -15,6 +15,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Publish package
-        run: mvn --batch-mode rabbit-conf:deploy
+        run: mvn --batch-mode deploy -pl rabbit-conf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
