@@ -5,68 +5,99 @@ import com.rabbitmq.client.Channel;
 import io.micronaut.rabbitmq.connect.ChannelInitializer;
 import jakarta.inject.Singleton;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @Singleton
 public class RabbitConfiguration extends ChannelInitializer {
 
-  public static final String AMQ_TOPIC = "amq.topic";
   public static final String COMMANDS_EXCHANGE_NAME = "commands";
-  public static final String COMMANDS_QUEUE_NAME = "commands.history";
+  public static final String HISTORY_COMMANDS_QUEUE_NAME = "commands.history";
+  public static final String HISTORY_COMMANDS_ROUTING_KEY = "history";
+  public static final String REEL_COMMANDS_QUEUE_NAME = "commands.reel";
+  public static final String REEL_COMMANDS_ROUTING_KEY = "reel";
+
+  public static final String AMQ_TOPIC = "amq.topic";
   public static final String PAYMENT_CONTRIBUTIONS_QUEUE_NAME =
     "payments_for_contributions";
-  public static final String HISTORY_COMMANDS_ROUTING_KEY = "history";
+  public static final String PAYMENT_REEL_QUEUE_NAME = "payments_for_reel";
+  public static final String PAYMENT_GOAL_QUEUE_NAME = "payments_for_goal";
+  public static final String PAYMENT_HISTORY_QUEUE_NAME = "payments_for_history";
   public static final String PAYMENTS_ROUTING_KEY = "payments";
+
+  private final List<QueueParams> queues = Arrays.asList(
+    new QueueParams[] {
+      new QueueParams() {
+        {
+          setExchangeName(AMQ_TOPIC);
+          setRoutingKey(PAYMENTS_ROUTING_KEY);
+          setQueueName(PAYMENT_REEL_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(AMQ_TOPIC);
+          setRoutingKey(PAYMENTS_ROUTING_KEY);
+          setQueueName(PAYMENT_GOAL_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(AMQ_TOPIC);
+          setRoutingKey(PAYMENTS_ROUTING_KEY);
+          setQueueName(PAYMENT_CONTRIBUTIONS_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(AMQ_TOPIC);
+          setRoutingKey(PAYMENTS_ROUTING_KEY);
+          setQueueName(PAYMENT_HISTORY_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(COMMANDS_EXCHANGE_NAME);
+          setRoutingKey(HISTORY_COMMANDS_ROUTING_KEY);
+          setQueueName(HISTORY_COMMANDS_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(COMMANDS_EXCHANGE_NAME);
+          setRoutingKey(REEL_COMMANDS_ROUTING_KEY);
+          setQueueName(REEL_COMMANDS_QUEUE_NAME);
+        }
+      },
+    }
+  );
 
   @Override
   public void initialize(Channel channel, String name) throws IOException {
     channel.exchangeDeclare(COMMANDS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
-    declareAndBind(
-      channel,
-      new QueueParams() {
-        {
-          setQueueName(PAYMENT_CONTRIBUTIONS_QUEUE_NAME);
-          setExchangeName(AMQ_TOPIC);
-          setRoutingKey(PAYMENTS_ROUTING_KEY);
-        }
-      }
-    );
-    declareAndBind(
-      channel,
-      new QueueParams() {
-        {
-          setQueueName("testname");
-          setExchangeName(AMQ_TOPIC);
-          setRoutingKey("testkey");
-        }
-      }
-    );
-    declareAndBind(
-      channel,
-      new QueueParams() {
-        {
-          setQueueName(COMMANDS_QUEUE_NAME);
-          setExchangeName(COMMANDS_EXCHANGE_NAME);
-          setRoutingKey(HISTORY_COMMANDS_ROUTING_KEY);
-        }
-      }
-    );
+    queues.forEach(queue -> {
+      declareAndBind(channel, queue);
+    });
   }
 
-  private void declareAndBind(Channel channel, QueueParams params)
-    throws IOException {
-    channel.queueDeclare(
-      params.getQueueName(),
-      true,
-      false,
-      false,
-      new HashMap<>()
-    );
-    channel.queueBind(
-      params.getQueueName(),
-      params.getExchangeName(),
-      params.getRoutingKey()
-    );
+  private void declareAndBind(Channel channel, QueueParams params) {
+    try {
+      channel.queueDeclare(
+        params.getQueueName(),
+        true,
+        false,
+        false,
+        new HashMap<>()
+      );
+      channel.queueBind(
+        params.getQueueName(),
+        params.getExchangeName(),
+        params.getRoutingKey()
+      );
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   static class QueueParams {
