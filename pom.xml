@@ -4,10 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.opendonationassistant</groupId>
   <artifactId>oda-libraries-aggregate-pom</artifactId>
-  <version>1.0.0</version>
+  <version>0.3.0</version>
   <packaging>pom</packaging>
   <name>ODA Libraries</name>
   <modules>
+    <module>commons</module>
     <module>rabbit-conf</module>
   </modules>
   <distributionManagement>

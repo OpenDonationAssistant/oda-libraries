@@ -26,6 +26,19 @@ public class RabbitConfiguration extends ChannelInitializer {
   public static final String PAYMENT_HISTORY_QUEUE_NAME = "payments_for_history";
   public static final String PAYMENTS_ROUTING_KEY = "payments";
 
+  public static final String WIDGET_CONFIGS_EXCHANGE_NAME = "changes.widgets";
+  public static final String REEL_CONFIG_QUEUE_NAME = "config.reel";
+  public static final String REEL_CONFIG_ROUTING_KEY = "reel";
+  public static final String GOALS_CONFIG_QUEUE_NAME = "config.goals";
+  public static final String GOALS_CONFIG_ROUTING_KEY = "donationgoal";
+
+  public static final String PAYMENTS_EXCHANGE_NAME = "payments";
+  public static final String PAYMENT_CONTRIBUTIONS_ROUTING_KEY =
+    "contributions";
+  public static final String PAYMENT_REEL_ROUTING_KEY = "reel";
+  public static final String PAYMENT_GOAL_ROUTING_KEY = "goal";
+
+
   private final List<QueueParams> queues = Arrays.asList(
     new QueueParams[] {
       new QueueParams() {
@@ -70,12 +83,49 @@ public class RabbitConfiguration extends ChannelInitializer {
           setQueueName(REEL_COMMANDS_QUEUE_NAME);
         }
       },
+      new QueueParams() {
+        {
+          setExchangeName(WIDGET_CONFIGS_EXCHANGE_NAME);
+          setRoutingKey(REEL_CONFIG_ROUTING_KEY);
+          setQueueName(REEL_CONFIG_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(WIDGET_CONFIGS_EXCHANGE_NAME);
+          setRoutingKey(GOALS_CONFIG_ROUTING_KEY);
+          setQueueName(GOALS_CONFIG_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(PAYMENTS_EXCHANGE_NAME);
+          setRoutingKey(PAYMENT_REEL_ROUTING_KEY);
+          setQueueName(PAYMENT_REEL_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(PAYMENTS_EXCHANGE_NAME);
+          setRoutingKey(PAYMENT_GOAL_ROUTING_KEY);
+          setQueueName(PAYMENT_GOAL_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(PAYMENTS_EXCHANGE_NAME);
+          setRoutingKey(PAYMENT_CONTRIBUTIONS_ROUTING_KEY);
+          setQueueName(PAYMENT_CONTRIBUTIONS_QUEUE_NAME);
+        }
+      },
     }
   );
 
   @Override
   public void initialize(Channel channel, String name) throws IOException {
     channel.exchangeDeclare(COMMANDS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+    channel.exchangeDeclare(WIDGET_CONFIGS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+    channel.exchangeDeclare(PAYMENTS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
     queues.forEach(queue -> {
       declareAndBind(channel, queue);
     });

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.opendonationassistant</groupId>
-  <artifactId>oda-rabbit-conf</artifactId>
+  <artifactId>oda-commons</artifactId>
   <version>0.3.0</version>
   <packaging>${packaging}</packaging>
   <parent>
@@ -34,22 +34,17 @@
   </distributionManagement>
   <dependencies>
     <dependency>
-      <groupId>io.github.opendonationassistant</groupId>
-      <artifactId>oda-commons</artifactId>
-      <version>0.3.0</version>
-    </dependency>
-    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.rabbitmq</groupId>
-      <artifactId>micronaut-rabbitmq</artifactId>
+      <groupId>io.micronaut.serde</groupId>
+      <artifactId>micronaut-serde-jackson</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.serde</groupId>
-      <artifactId>micronaut-serde-jackson</artifactId>
+      <groupId>io.micronaut.data</groupId>
+      <artifactId>micronaut-data-jdbc</artifactId>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -67,7 +62,7 @@
           <useIncrementalCompilation>false</useIncrementalCompilation>
           <compilerArgs>
             <arg>-Amicronaut.processing.group=io.github.opendonationassistant</arg>
-            <arg>-Amicronaut.processing.module=oda-rabbit-conf</arg>
+            <arg>-Amicronaut.processing.module=oda-commons</arg>
           </compilerArgs>
         </configuration>
       </plugin>
