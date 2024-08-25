@@ -4,13 +4,39 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.opendonationassistant</groupId>
   <artifactId>oda-libraries-aggregate-pom</artifactId>
-  <version>0.3.1</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>ODA Libraries</name>
+  <parent>
+    <groupId>io.micronaut.platform</groupId>
+    <artifactId>micronaut-parent</artifactId>
+    <version>4.2.3</version>
+  </parent>
+  <properties>
+    <buildNumber>1</buildNumber>
+    <revision>0.3.2-${buildNumber}</revision>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <jdk.version>17</jdk.version>
+    <release.version>17</release.version>
+    <micronaut.runtime>netty</micronaut.runtime>
+    <micronaut.version>4.2.3</micronaut.version>
+    <micronaut.runtime>netty</micronaut.runtime>
+    <micronaut.test.resources.enabled>true</micronaut.test.resources.enabled>
+    <micronaut.aot.enabled>false</micronaut.aot.enabled>
+  </properties>
   <modules>
     <module>commons</module>
     <module>rabbit-conf</module>
   </modules>
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
   <distributionManagement>
     <repository>
       <id>github</id>
