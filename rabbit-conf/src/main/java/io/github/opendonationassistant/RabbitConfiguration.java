@@ -12,6 +12,20 @@ import java.util.List;
 @Singleton
 public class RabbitConfiguration extends ChannelInitializer {
 
+  public static class Exchange{
+    public static final String COMMANDS = "commands";
+  }
+
+  public static class Key{
+    public static final String HISTORY = "history";
+    public static final String CONFIG = "config";
+  }
+
+  public static class Queue{
+    public static final String COMMANDS_HISTORY = "commands.history";
+    public static final String COMMANDS_CONFIG = "commands.config";
+  }
+
   public static final String COMMANDS_EXCHANGE_NAME = "commands";
   public static final String HISTORY_COMMANDS_QUEUE_NAME = "commands.history";
   public static final String HISTORY_COMMANDS_ROUTING_KEY = "history";
@@ -81,6 +95,13 @@ public class RabbitConfiguration extends ChannelInitializer {
           setExchangeName(COMMANDS_EXCHANGE_NAME);
           setRoutingKey(REEL_COMMANDS_ROUTING_KEY);
           setQueueName(REEL_COMMANDS_QUEUE_NAME);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(Exchange.COMMANDS);
+          setRoutingKey(Key.CONFIG);
+          setQueueName(Queue.COMMANDS_CONFIG);
         }
       },
       new QueueParams() {
