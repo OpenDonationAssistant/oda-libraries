@@ -14,14 +14,17 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: Publish commons
+
+      - name: Build libraries
         run: mvn --batch-mode clean install -DbuildNumber=${{ github.RUN_NUMBER }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish commons
         run: mvn --batch-mode deploy -pl 'commons ' -DbuildNumber=${{ github.RUN_NUMBER }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish rabbit-conf
         run: mvn --batch-mode deploy -pl 'rabbit-conf' -DbuildNumber=${{ github.RUN_NUMBER }}
         env:
