@@ -12,17 +12,20 @@ import java.util.List;
 @Singleton
 public class RabbitConfiguration extends ChannelInitializer {
 
-  public static class Exchange{
+  public static class Exchange {
+
     public static final String COMMANDS = "commands";
   }
 
-  public static class Key{
+  public static class Key {
+
     public static final String HISTORY = "history";
     public static final String CONFIG = "config";
     public static final String FILES = "files";
   }
 
-  public static class Queue{
+  public static class Queue {
+
     public static final String COMMANDS_HISTORY = "commands.history";
     public static final String COMMANDS_CONFIG = "commands.config";
     public static final String COMMANDS_FILES = "commands.files";
@@ -39,7 +42,8 @@ public class RabbitConfiguration extends ChannelInitializer {
     "payments_for_contributions";
   public static final String PAYMENT_REEL_QUEUE_NAME = "payments_for_reel";
   public static final String PAYMENT_GOAL_QUEUE_NAME = "payments_for_goal";
-  public static final String PAYMENT_HISTORY_QUEUE_NAME = "payments_for_history";
+  public static final String PAYMENT_HISTORY_QUEUE_NAME =
+    "payments_for_history";
   public static final String PAYMENTS_ROUTING_KEY = "payments";
 
   public static final String WIDGET_CONFIGS_EXCHANGE_NAME = "changes.widgets";
@@ -53,7 +57,6 @@ public class RabbitConfiguration extends ChannelInitializer {
     "contributions";
   public static final String PAYMENT_REEL_ROUTING_KEY = "reel";
   public static final String PAYMENT_GOAL_ROUTING_KEY = "goal";
-
 
   private final List<QueueParams> queues = Arrays.asList(
     new QueueParams[] {
@@ -154,7 +157,10 @@ public class RabbitConfiguration extends ChannelInitializer {
   @Override
   public void initialize(Channel channel, String name) throws IOException {
     channel.exchangeDeclare(COMMANDS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
-    channel.exchangeDeclare(WIDGET_CONFIGS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+    channel.exchangeDeclare(
+      WIDGET_CONFIGS_EXCHANGE_NAME,
+      BuiltinExchangeType.TOPIC
+    );
     channel.exchangeDeclare(PAYMENTS_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
     queues.forEach(queue -> {
       declareAndBind(channel, queue);
