@@ -19,11 +19,13 @@ public class RabbitConfiguration extends ChannelInitializer {
   public static class Key{
     public static final String HISTORY = "history";
     public static final String CONFIG = "config";
+    public static final String FILES = "files";
   }
 
   public static class Queue{
     public static final String COMMANDS_HISTORY = "commands.history";
     public static final String COMMANDS_CONFIG = "commands.config";
+    public static final String COMMANDS_FILES = "commands.files";
   }
 
   public static final String COMMANDS_EXCHANGE_NAME = "commands";
@@ -102,6 +104,13 @@ public class RabbitConfiguration extends ChannelInitializer {
           setExchangeName(Exchange.COMMANDS);
           setRoutingKey(Key.CONFIG);
           setQueueName(Queue.COMMANDS_CONFIG);
+        }
+      },
+      new QueueParams() {
+        {
+          setExchangeName(Exchange.COMMANDS);
+          setRoutingKey(Key.FILES);
+          setQueueName(Queue.COMMANDS_FILES);
         }
       },
       new QueueParams() {
