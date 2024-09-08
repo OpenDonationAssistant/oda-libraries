@@ -14,7 +14,7 @@
   </parent>
   <properties>
     <buildNumber>1</buildNumber>
-    <revision>0.4.0-${buildNumber}</revision>
+    <revision>0.5.0-${buildNumber}</revision>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
