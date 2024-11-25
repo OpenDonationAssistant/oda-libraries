@@ -16,6 +16,11 @@ public class Mapping {
       new QueueParams() {{
         setExchangeName(Exchange.AMQ_TOPIC);
         setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.DONATON);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.AMQ_TOPIC);
+        setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.GOAL);
       }},
       new QueueParams() {{
@@ -59,9 +64,19 @@ public class Mapping {
         setQueueName(Queue.Commands.NOTIFICATIONS);
       }},
       new QueueParams() {{
+        setExchangeName(Exchange.COMMANDS);
+        setRoutingKey(Key.WIDGETS);
+        setQueueName(Queue.Commands.WIDGETS);
+      }},
+      new QueueParams() {{
         setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.REEL);
         setQueueName(Queue.Configs.REEL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.Configs.WIDGETS);
+        setRoutingKey(Key.DONATON);
+        setQueueName(Queue.Configs.DONATON);
       }},
       new QueueParams() {{
         setExchangeName(Exchange.Configs.WIDGETS);
@@ -70,18 +85,23 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey(Key.REEL);
+        setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.REEL);
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey(Key.GOAL);
+        setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.GOAL);
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey(Key.CONTRIBUTIONS);
+        setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.CONTRIBUTIONS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.DONATON);
       }},
     }
     // prettier-ignore OFF
