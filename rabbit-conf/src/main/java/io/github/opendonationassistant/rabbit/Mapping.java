@@ -39,6 +39,11 @@ public class Mapping {
         setQueueName(Queue.Payments.MEDIA);
       }},
       new QueueParams() {{
+        setExchangeName(Exchange.AMQ_TOPIC);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.ALERTS);
+      }},
+      new QueueParams() {{
         setExchangeName(Exchange.COMMANDS);
         setRoutingKey(Key.HISTORY);
         setQueueName(Queue.Commands.HISTORY);

@@ -12,5 +12,4 @@ public interface FilesCommandSender {
   default void sendCreateBucketCommand(CreateBucketCommand command) {
     send(Key.FILES, command);
   }
-
 }

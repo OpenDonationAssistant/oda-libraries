@@ -16,6 +16,7 @@ public class Queue {
   public static class Payments {
 
     public static final String MEDIA         = "payments";
+    public static final String ALERTS        = "payments.alerts";
     public static final String CONTRIBUTIONS = "payments_for_contributions";
     public static final String REEL          = "payments_for_reel";
     public static final String GOAL          = "payments_for_goal";

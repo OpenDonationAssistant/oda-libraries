@@ -4,6 +4,7 @@ import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
 public class CreateBucketCommand implements FilesCommand {
+
   private final String name;
 
   public CreateBucketCommand(String name) {
@@ -13,5 +14,4 @@ public class CreateBucketCommand implements FilesCommand {
   public String getName() {
     return name;
   }
-
 }
