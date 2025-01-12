@@ -24,7 +24,16 @@ public class CompletedPaymentNotification {
     AlertNotification notification = new AlertNotification();
     notification.setId(id);
     notification.setNickname(nickname);
-    notification.setMessage(message);
+    notification.setMessage(
+        message.toLowerCase()
+          .replaceAll("ксюша","Кека")
+          .replaceAll("ксю","Кека")
+          .replaceAll("ксения","Кека")
+          .replaceAll("к с е н и я","Кека")
+          .replaceAll("к с ю ш а","Кека")
+          .replaceAll("к с ю","Кека")
+          .replaceAll("ксени","Кека")
+    );
     notification.setRecipientId(recipientId);
     notification.setAmount(amount);
     notification.setConfirmation(confirmation);
