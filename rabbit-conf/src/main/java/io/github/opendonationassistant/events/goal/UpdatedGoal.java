@@ -11,6 +11,7 @@ public class UpdatedGoal {
   private String briefDescription;
   private Amount requiredAmount;
   private Amount accumulatedAmount;
+  private Boolean isDefault;
 
   public String getGoalId() {
     return goalId;
@@ -47,6 +48,12 @@ public class UpdatedGoal {
   }
   public void setRecipientId(String recipientId) {
     this.recipientId = recipientId;
+  }
+  public Boolean getIsDefault() {
+    return isDefault;
+  }
+  public void setIsDefault(Boolean isDefault) {
+    this.isDefault = isDefault;
   }
 
 }
