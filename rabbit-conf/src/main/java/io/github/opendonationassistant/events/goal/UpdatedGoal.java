@@ -6,6 +6,7 @@ import io.micronaut.serde.annotation.Serdeable;
 @Serdeable
 public class UpdatedGoal {
   private String goalId;
+  private String recipientId;
   private String fullDescription;
   private String briefDescription;
   private Amount requiredAmount;
@@ -40,6 +41,12 @@ public class UpdatedGoal {
   }
   public void setAccumulatedAmount(Amount accumulatedAmount) {
     this.accumulatedAmount = accumulatedAmount;
+  }
+  public String getRecipientId() {
+    return recipientId;
+  }
+  public void setRecipientId(String recipientId) {
+    this.recipientId = recipientId;
   }
 
 }
