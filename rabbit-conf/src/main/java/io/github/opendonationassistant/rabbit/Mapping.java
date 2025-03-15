@@ -118,6 +118,11 @@ public class Mapping {
         setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.DONATON);
       }},
+      new QueueParams() {{
+        setExchangeName(Exchange.EVENTS);
+        setRoutingKey(Key.GOAL);
+        setQueueName(Queue.Events.GOAL);
+      }},
     }
     // prettier-ignore OFF
   );

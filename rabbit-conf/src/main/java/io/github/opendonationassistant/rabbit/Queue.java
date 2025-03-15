@@ -23,6 +23,11 @@ public class Queue {
     public static final String GOAL          = "payments_for_goal";
     public static final String HISTORY       = "payments_for_history";
     public static final String DONATON       = "payments_for_donaton";
+
+  }
+
+  public static class Events {
+    public static final String GOAL         = "events.goals";
   }
 
   public static class Configs {
