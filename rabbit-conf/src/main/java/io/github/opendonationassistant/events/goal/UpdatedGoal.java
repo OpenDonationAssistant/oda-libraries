@@ -6,6 +6,7 @@ import io.micronaut.serde.annotation.Serdeable;
 @Serdeable
 public class UpdatedGoal {
   private String goalId;
+  private String widgetId;
   private String recipientId;
   private String fullDescription;
   private String briefDescription;
@@ -54,6 +55,12 @@ public class UpdatedGoal {
   }
   public void setIsDefault(Boolean isDefault) {
     this.isDefault = isDefault;
+  }
+  public String getWidgetId() {
+    return widgetId;
+  }
+  public void setWidgetId(String widgetId) {
+    this.widgetId = widgetId;
   }
 
 }
