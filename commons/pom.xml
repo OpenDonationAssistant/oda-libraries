@@ -34,6 +34,15 @@
       <artifactId>micronaut-security-jwt</artifactId>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-http-server-netty</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.problem</groupId>
+      <artifactId>micronaut-problem-json</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
