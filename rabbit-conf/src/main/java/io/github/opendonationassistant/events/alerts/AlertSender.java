@@ -9,6 +9,6 @@ public interface AlertSender {
   void internalSend(@Binding String binding, AlertNotification notification);
 
   default void send(String recipientId, AlertNotification notification) {
-    internalSend("%salerts".formatted(notification.getRecipientId()), notification);
+    internalSend("%salerts".formatted(notification.recipientId()), notification);
   }
 }

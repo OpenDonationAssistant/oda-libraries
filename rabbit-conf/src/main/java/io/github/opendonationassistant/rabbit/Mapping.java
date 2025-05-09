@@ -98,10 +98,16 @@ public class Mapping {
         setRoutingKey(Key.GOAL);
         setQueueName(Queue.Configs.GOAL);
       }},
+
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.REEL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.DONATON);
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
@@ -116,8 +122,24 @@ public class Mapping {
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.PAYMENTS);
-        setQueueName(Queue.Payments.DONATON);
+        setQueueName(Queue.Payments.HISTORY);
       }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.MEDIA);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.ALERTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Payments.AUTOMATION);
+      }},
+
       new QueueParams() {{
         setExchangeName(Exchange.EVENTS);
         setRoutingKey(Key.GOAL);
