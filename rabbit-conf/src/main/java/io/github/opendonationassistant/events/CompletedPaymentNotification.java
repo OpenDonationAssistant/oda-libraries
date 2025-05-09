@@ -9,7 +9,9 @@ import java.util.List;
 public record CompletedPaymentNotification(
   String id,
   String nickname,
+  String cleanNickname,
   String message,
+  String cleanMessage,
   String recipientId,
   Amount amount,
   List<String> attachments,
