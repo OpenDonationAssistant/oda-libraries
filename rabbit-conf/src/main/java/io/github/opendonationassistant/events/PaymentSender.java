@@ -8,4 +8,3 @@ import io.micronaut.rabbitmq.annotation.RabbitClient;
 public interface PaymentSender {
   void send(@Binding String binding, CompletedPaymentNotification notification);
 }
-

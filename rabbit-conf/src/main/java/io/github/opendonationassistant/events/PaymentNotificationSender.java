@@ -7,21 +7,25 @@ import io.micronaut.rabbitmq.annotation.RabbitClient;
 
 @RabbitClient(Exchange.PAYMENTS)
 public interface PaymentNotificationSender {
-  void send(@Binding String binding, CompletedPaymentNotification notification);
+  void internalSend(@Binding String binding, CompletedPaymentNotification notification);
+
+  default void send(CompletedPaymentNotification payment){
+    this.internalSend(Key.PAYMENTS, payment);
+  }
 
   default void sendToGoals(CompletedPaymentNotification payment) {
-    this.send(Key.GOAL, payment);
+    this.internalSend(Key.GOAL, payment);
   }
 
   default void sendToContributions(CompletedPaymentNotification payment) {
-    this.send(Key.CONTRIBUTIONS, payment);
+    this.internalSend(Key.CONTRIBUTIONS, payment);
   }
 
   default void sendToReel(CompletedPaymentNotification payment) {
-    this.send(Key.REEL, payment);
+    this.internalSend(Key.REEL, payment);
   }
 
   default void sendToDonaton(CompletedPaymentNotification payment) {
-    this.send(Key.DONATON, payment);
+    this.internalSend(Key.DONATON, payment);
   }
 }
