@@ -6,6 +6,7 @@ import io.micronaut.http.server.exceptions.ExceptionHandler;
 import jakarta.inject.Singleton;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -34,9 +35,16 @@ public class GlobalExceptionHandler
           ToString.asJson(
             Map.of(
               "error",
-              exception.getMessage(),
+              Optional.ofNullable(exception.getMessage()).orElse(
+                "Error has no message"
+              ),
               "location",
-              "%s-%s".formatted(element.getClassName(), element.getLineNumber())
+              "%s-%s".formatted(
+                  Optional.ofNullable(element.getClassName()).orElse(
+                    "Unknown class"
+                  ),
+                  Optional.ofNullable(element.getLineNumber()).orElse(-1)
+                )
             )
           )
         )
@@ -45,9 +53,7 @@ public class GlobalExceptionHandler
     MDC.clear();
 
     return HttpResponse.serverError(
-      Problem.builder()
-        .withTitle("Internal Server Error")
-        .build()
+      Problem.builder().withTitle("Internal Server Error").build()
     );
   }
 }
