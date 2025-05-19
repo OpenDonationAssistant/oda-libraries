@@ -11,6 +11,7 @@ public class Key {
   public static final String DONATON = "donaton";
   public static final String GOAL = "goal";
   public static final String WIDGETS = "widgets";
+  public static final String MEDIA = "media";
   public static final String CONTRIBUTIONS = "contributions";
   public static final String NOTIFICATIONS = "notifications";
 }

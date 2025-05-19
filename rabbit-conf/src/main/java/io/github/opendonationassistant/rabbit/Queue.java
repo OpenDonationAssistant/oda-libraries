@@ -35,5 +35,6 @@ public class Queue {
     public static final String GOAL     = "config.goals";
     public static final String REEL     = "config.reel";
     public static final String DONATON  = "config.donaton";
+    public static final String MEDIA    = "config.media";
   }
 }

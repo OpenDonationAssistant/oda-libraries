@@ -98,7 +98,11 @@ public class Mapping {
         setRoutingKey(Key.GOAL);
         setQueueName(Queue.Configs.GOAL);
       }},
-
+      new QueueParams() {{
+        setExchangeName(Exchange.Configs.WIDGETS);
+        setRoutingKey(Key.MEDIA);
+        setQueueName(Queue.Configs.MEDIA);
+      }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.PAYMENTS);
