@@ -31,10 +31,10 @@ public class GlobalExceptionHandler
       .findFirst()
       .ifPresent(element ->
         MDC.put(
-          "context",
+          "error",
           ToString.asJson(
             Map.of(
-              "error",
+              "message",
               Optional.ofNullable(exception.getMessage()).orElse(
                 "Error has no message"
               ),
