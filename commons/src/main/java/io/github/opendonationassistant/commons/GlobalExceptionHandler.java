@@ -1,10 +1,13 @@
 package io.github.opendonationassistant.commons;
 
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.server.exceptions.ExceptionHandler;
 import jakarta.inject.Singleton;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -35,9 +38,7 @@ public class GlobalExceptionHandler
           ToString.asJson(
             Map.of(
               "message",
-              Optional.ofNullable(exception.getMessage()).orElse(
-                "Error has no message"
-              ),
+              collectErrorMessages(exception),
               "location",
               "%s-%s".formatted(
                   Optional.ofNullable(element.getClassName()).orElse(
@@ -55,5 +56,15 @@ public class GlobalExceptionHandler
     return HttpResponse.serverError(
       Problem.builder().withTitle("Internal Server Error").build()
     );
+  }
+
+  private List<String> collectErrorMessages(Throwable exception) {
+    var messages = new ArrayList<String>();
+    var cause = exception;
+    while (cause != null) {
+      Optional.ofNullable(cause.getMessage()).ifPresent(messages::add);
+      cause = cause.getCause();
+    }
+    return messages;
   }
 }
