@@ -1,24 +1,13 @@
 package io.github.opendonationassistant.events.widget;
 
+import io.github.opendonationassistant.commons.ToString;
+import io.micronaut.serde.annotation.Serdeable;
 import java.util.List;
 
-import io.micronaut.serde.annotation.Serdeable;
-
 @Serdeable
-public class WidgetConfig {
-
-  private List<WidgetProperty> properties;
-
-  public List<WidgetProperty> getProperties() {
-    return properties;
-  }
-
-  public void setProperties(List<WidgetProperty> properties) {
-    this.properties = properties;
-  }
-
+public record WidgetConfig(List<WidgetProperty> properties) {
   @Override
   public String toString() {
-    return "{\"_type\"=\"WidgetConfig\",\"properties\"=\"" + properties + "}";
+    return ToString.asJson(this);
   }
 }
