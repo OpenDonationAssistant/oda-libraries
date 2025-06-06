@@ -17,15 +17,23 @@ public class ODALogger {
     this.log = LoggerFactory.getLogger(className);
   }
 
-  public void info(String message, Map<?, ?> context) {
+  public void context(Map<?,?> context){
     MDC.put("context", ToString.asJson(context));
+  }
+
+  public void clear(){
+    MDC.remove("context");
+  }
+
+  public void info(String message, Map<?, ?> context) {
+    this.context(context);
     this.log.info(message);
-    MDC.clear();
+    this.clear();
   }
 
   public void debug(String message, Map<?, ?> context) {
-    MDC.put("context", ToString.asJson(context));
+    this.context(context);
     this.log.debug(message);
-    MDC.clear();
+    this.clear();
   }
 }
