@@ -9,6 +9,7 @@ public record Widget(
   String type,
   Integer sortOrder,
   String name,
+  Boolean enabled,
   String ownerId,
   WidgetConfig config
 ) {
