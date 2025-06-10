@@ -17,6 +17,11 @@ public record AlertNotification(
   Instant authorizationTimestamp,
   AlertMedia media
 ) {
+
+  public AlertNotification withMedia(AlertMedia newMedia){
+    return new AlertNotification(id, nickname, message, recipientId, amount, attachments, goal, authorizationTimestamp, newMedia);
+  }
+
   @Serdeable
   public static record AlertMedia(String url) {}
 }

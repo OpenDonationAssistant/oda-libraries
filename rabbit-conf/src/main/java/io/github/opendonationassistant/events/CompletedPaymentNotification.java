@@ -1,6 +1,7 @@
 package io.github.opendonationassistant.events;
 
 import io.github.opendonationassistant.commons.Amount;
+import io.github.opendonationassistant.events.alerts.AlertNotification;
 import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import java.util.List;
@@ -17,4 +18,18 @@ public record CompletedPaymentNotification(
   List<String> attachments,
   String goal,
   Instant authorizationTimestamp
-) {}
+) {
+  public AlertNotification asAlertNotification() {
+    return new AlertNotification(
+      id,
+      cleanNickname,
+      cleanMessage,
+      recipientId,
+      amount,
+      attachments,
+      goal,
+      authorizationTimestamp,
+      null
+    );
+  }
+}
