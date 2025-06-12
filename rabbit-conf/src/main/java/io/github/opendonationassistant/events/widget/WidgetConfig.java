@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Serdeable
 public record WidgetConfig(@Nonnull List<WidgetProperty> properties) {
-  public @Nonnull Optional<WidgetProperty> get(String name) {
+  public @Nonnull Optional<WidgetProperty> getProperty(String name) {
     if (StringUtils.isEmpty(name)) {
       return Optional.empty();
     }
@@ -17,6 +17,10 @@ public record WidgetConfig(@Nonnull List<WidgetProperty> properties) {
       .stream()
       .filter(prop -> name.equals(prop.name()))
       .findFirst();
+  }
+
+  public <T> Optional<T> getValue(String name){
+    return this.getProperty(name).map(it -> (T)it);
   }
 
   @Override
