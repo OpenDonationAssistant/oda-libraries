@@ -1,10 +1,10 @@
 package io.github.opendonationassistant.events.history;
 
 import io.github.opendonationassistant.commons.Amount;
+import io.github.opendonationassistant.commons.ToString;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.data.model.DataType;
-import io.micronaut.serde.ObjectMapper;
 import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -18,9 +18,11 @@ public class HistoryItemData {
 
   private String paymentId;
   private String nickname;
+  private String cleanNickname;
   private String recipientId;
   private Amount amount;
   private String message;
+  private String cleanMessage;
   private Instant authorizationTimestamp;
 
   private List<Attachment> attachments = new ArrayList<>();
@@ -110,6 +112,22 @@ public class HistoryItemData {
     this.authorizationTimestamp = authorizationTimestamp;
   }
 
+  public String getCleanNickname() {
+    return cleanNickname;
+  }
+
+  public void setCleanNickname(String cleanNickname) {
+    this.cleanNickname = cleanNickname;
+  }
+
+  public String getCleanMessage() {
+    return cleanMessage;
+  }
+
+  public void setCleanMessage(String cleanMessage) {
+    this.cleanMessage = cleanMessage;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -177,10 +195,6 @@ public class HistoryItemData {
 
   @Override
   public String toString() {
-    try {
-      return ObjectMapper.getDefault().writeValueAsString(this);
-    } catch (Exception e) {
-      return "Can't serialize " + e.getMessage();
-    }
+    return ToString.asJson(this);
   }
 }
