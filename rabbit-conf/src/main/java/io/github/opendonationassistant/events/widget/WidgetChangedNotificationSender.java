@@ -13,7 +13,10 @@ public interface WidgetChangedNotificationSender {
   void _send(@Binding String binding, WidgetChangedEvent event);
 
   default void send(String binding, WidgetChangedEvent event) {
-    log.info("Send event", Map.of("event", event, "binding", binding));
+    log.info(
+      "Send WidgetChangedEvent",
+      Map.of("event", event, "binding", binding)
+    );
     this._send(binding, event);
   }
 }

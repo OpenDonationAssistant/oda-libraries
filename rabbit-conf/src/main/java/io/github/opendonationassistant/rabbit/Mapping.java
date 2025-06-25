@@ -143,11 +143,15 @@ public class Mapping {
         setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.AUTOMATION);
       }},
-
       new QueueParams() {{
-        setExchangeName(Exchange.EVENTS);
-        setRoutingKey(Key.GOAL);
-        setQueueName(Queue.Events.GOAL);
+        setExchangeName(Exchange.GOALS);
+        setRoutingKey(Key.AFTERPAYMENT);
+        setQueueName(Queue.Automation.GOAL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.GOALS);
+        setRoutingKey(Key.AFTERAUTOMATION);
+        setQueueName(Queue.Goal.FINISHED);
       }},
     }
     // prettier-ignore OFF

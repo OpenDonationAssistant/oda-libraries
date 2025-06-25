@@ -10,22 +10,21 @@ import java.util.HashMap;
 @Singleton
 public class RabbitConfiguration extends ChannelInitializer {
 
+  // prettier-ignore ON
   @Override
   public void initialize(Channel channel, String name) throws IOException {
     channel.exchangeDeclare(Exchange.COMMANDS, BuiltinExchangeType.TOPIC);
-    channel.exchangeDeclare(
-      Exchange.Configs.WIDGETS,
-      BuiltinExchangeType.TOPIC
-    );
+    channel.exchangeDeclare(Exchange.Configs.WIDGETS, BuiltinExchangeType.TOPIC);
     channel.exchangeDeclare(Exchange.PAYMENTS, BuiltinExchangeType.TOPIC);
-    channel.exchangeDeclare(
-      Exchange.EVENTS,
-      BuiltinExchangeType.TOPIC
-    );
+    channel.exchangeDeclare(Exchange.EVENTS, BuiltinExchangeType.TOPIC);
+    channel.exchangeDeclare(Exchange.GOALS, BuiltinExchangeType.TOPIC);
+
     Mapping.QUEUES.forEach(queue -> {
       declareAndBind(channel, queue);
     });
   }
+
+  // prettier-ignore OFF
 
   private void declareAndBind(Channel channel, QueueParams params) {
     try {

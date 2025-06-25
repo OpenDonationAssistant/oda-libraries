@@ -3,7 +3,6 @@ package io.github.opendonationassistant.rabbit;
 public class Queue {
 
   public static class Commands {
-
     public static final String HISTORY           = "commands.history";
     public static final String CONFIG            = "commands.config";
     public static final String FILES             = "commands.files";
@@ -14,7 +13,6 @@ public class Queue {
   }
 
   public static class Payments {
-
     public static final String MEDIA         = "payments";
     public static final String AUTOMATION    = "payments.automation";
     public static final String ALERTS        = "payments.alerts";
@@ -26,12 +24,15 @@ public class Queue {
 
   }
 
-  public static class Events {
-    public static final String GOAL         = "events.goals";
+  public static class Automation {
+    public static final String GOAL         = "automation.goals";
+  }
+
+  public static class Goal {
+    public static final String FINISHED = "goal.finished";
   }
 
   public static class Configs {
-
     public static final String GOAL     = "config.goals";
     public static final String REEL     = "config.reel";
     public static final String DONATON  = "config.donaton";

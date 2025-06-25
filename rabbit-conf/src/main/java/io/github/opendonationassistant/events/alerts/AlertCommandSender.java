@@ -14,7 +14,7 @@ public interface AlertCommandSender {
   void send(@Binding String binding, AlertCommand command);
 
   default void sendCreateAlertImageCommand(AlertCommand command) {
-    log.info("Sending AlertCommand", Map.of("command", command));
+    log.info("Send AlertCommand", Map.of("command", command));
     send(Key.ALERTS, command);
   }
 }

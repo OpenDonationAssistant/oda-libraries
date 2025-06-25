@@ -16,7 +16,8 @@ public interface ConfigCommandSender {
   void sendSerialized(@Binding String binding, String command);
 
   default void send(ConfigPutCommand command) {
-    log.context(Map.of("command", command));
+    // TODO: почему не просто send с биндингом?
+    log.context(Map.of("ConfigPutCommand", command));
     var mapper = ObjectMapper.getDefault();
     try {
       sendSerialized("config", mapper.writeValueAsString(command));

@@ -13,7 +13,7 @@ public interface AlertSender {
   void internalSend(@Binding String binding, AlertNotification notification);
 
   default void send(String recipientId, AlertNotification notification) {
-    log.info("Sending AlertNotification", Map.of("notification", notification));
+    log.info("Send AlertNotification", Map.of("notification", notification));
     internalSend(
       "%salerts".formatted(notification.recipientId()),
       notification

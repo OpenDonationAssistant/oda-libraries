@@ -14,4 +14,6 @@ public class Key {
   public static final String MEDIA = "media";
   public static final String CONTRIBUTIONS = "contributions";
   public static final String NOTIFICATIONS = "notifications";
+  public static final String AFTERPAYMENT = "afterpayment";
+  public static final String AFTERAUTOMATION = "afterautomation";
 }

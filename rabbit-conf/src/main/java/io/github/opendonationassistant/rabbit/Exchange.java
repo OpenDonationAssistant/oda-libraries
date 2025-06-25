@@ -11,5 +11,6 @@ public class Exchange {
   public static final String AMQ_TOPIC = "amq.topic";
   public static final String COMMANDS = "commands";
   public static final String PAYMENTS = "payments";
+  public static final String GOALS = "goals";
 
 }
