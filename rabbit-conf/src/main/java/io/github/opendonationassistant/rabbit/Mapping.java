@@ -3,11 +3,11 @@ package io.github.opendonationassistant.rabbit;
 import java.util.Arrays;
 import java.util.List;
 
+// prettier-ignore ON
 public class Mapping {
 
-  public static final List<QueueParams> QUEUES = Arrays.asList(
-    // prettier-ignore ON
-    new QueueParams[] {
+  public static final List<QueueParams> QUEUES =
+    Arrays.asList(new QueueParams[] {
       new QueueParams() {{
         setExchangeName(Exchange.AMQ_TOPIC);
         setRoutingKey(Key.PAYMENTS);
@@ -153,7 +153,10 @@ public class Mapping {
         setRoutingKey(Key.AFTERAUTOMATION);
         setQueueName(Queue.Goal.FINISHED);
       }},
-    }
-    // prettier-ignore OFF
-  );
+      new QueueParams() {{
+        setExchangeName(Exchange.GOALS);
+        setRoutingKey(Key.FINALIZED);
+        setQueueName(Queue.History.GOAL);
+      }},
+    });
 }
