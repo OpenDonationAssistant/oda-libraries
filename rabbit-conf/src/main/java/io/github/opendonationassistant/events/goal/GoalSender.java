@@ -20,6 +20,7 @@ public interface GoalSender {
   public static enum Stage {
     AFTER_PAYMENT("afterpayment"),
     AFTER_AUTOMATION("afterautomation"),
+    SYNCED("synced"),
     FINALIZED("finalized");
 
     private String binding;

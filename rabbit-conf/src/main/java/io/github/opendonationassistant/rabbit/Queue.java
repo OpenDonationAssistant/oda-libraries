@@ -32,6 +32,8 @@ public class Queue {
 
   public static class Goal {
 
+    public static final String CALCULATED = "goal.calculated";
+    public static final String SYNCED = "goal.calculated";
     public static final String FINISHED = "goal.finished";
   }
 

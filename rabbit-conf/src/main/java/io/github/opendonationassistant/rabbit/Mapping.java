@@ -151,6 +151,11 @@ public class Mapping {
       new QueueParams() {{
         setExchangeName(Exchange.GOALS);
         setRoutingKey(Key.AFTERAUTOMATION);
+        setQueueName(Queue.Goal.CALCULATED);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.GOALS);
+        setRoutingKey(Key.SYNCED);
         setQueueName(Queue.Goal.FINISHED);
       }},
       new QueueParams() {{
