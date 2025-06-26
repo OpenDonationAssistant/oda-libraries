@@ -12,7 +12,10 @@ public interface GoalCommandSender {
   void send(@Binding String binding, GoalCommand command);
 
   default void sendGoalCommand(String recipientId, GoalCommand command) {
-    log.info("Send GoalCommand", Map.of("command", command));
+    log.info(
+      "Send GoalCommand",
+      Map.of("command", command, "recipientId", recipientId)
+    );
     send("%sgoal".formatted(recipientId), command);
   }
 }

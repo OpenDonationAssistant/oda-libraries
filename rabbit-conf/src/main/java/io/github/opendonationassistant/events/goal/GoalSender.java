@@ -13,7 +13,7 @@ public interface GoalSender {
   void send(@Binding String binding, UpdatedGoal goal);
 
   default void sendGoal(Stage stage, UpdatedGoal goal) {
-    log.info("Send UpdatedGoal", Map.of("goal", goal));
+    log.info("Send UpdatedGoal", Map.of("goal", goal, "stage", stage));
     send(stage.binding(), goal);
   }
 
