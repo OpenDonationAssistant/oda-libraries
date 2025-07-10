@@ -16,7 +16,7 @@ on:
 jobs:
 
   build-and-push:
-    uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/build_with_npm.yml@main'
+    uses: 'OpenDonationAssistant/oda-libraries/.github/workflows/build_with_npm.yml@master'
     secrets: inherit
     with:
       service: ${{ inputs.service }}
