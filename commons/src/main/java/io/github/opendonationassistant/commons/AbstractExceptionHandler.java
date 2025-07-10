@@ -3,9 +3,7 @@ package io.github.opendonationassistant.commons;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -14,33 +12,33 @@ public class AbstractExceptionHandler {
 
   private Logger log = LoggerFactory.getLogger(AbstractExceptionHandler.class);
 
-  protected void log(Exception exception){
+  protected void log(Exception exception) {
     Arrays.asList(exception.getStackTrace())
       .stream()
       .filter(element ->
         element.getClassName().startsWith("io.github.opendonationassistant")
       )
       .findFirst()
-      .ifPresent(element ->
-        MDC.put(
-          "error",
-          ToString.asJson(
-            Map.of(
-              "message",
-              collectErrorMessages(exception),
-              "location",
-              "%s-%s".formatted(
-                  Optional.ofNullable(element.getClassName()).orElse(
-                    "Unknown class"
-                  ),
-                  Optional.ofNullable(element.getLineNumber()).orElse(-1)
-                )
-            )
-          )
-        )
+      .ifPresentOrElse(
+        element -> putMDC(element, exception),
+        () -> putMDC(exception.getStackTrace()[0], exception)
       );
     log.error("Server Error");
     MDC.clear();
+  }
+
+  private void putMDC(StackTraceElement element, Exception exception) {
+    MDC.put(
+      "error",
+      """
+        {"message":"%s"},
+        {"location":"%s:%s"}
+      """.formatted(
+          collectErrorMessages(exception),
+          Optional.ofNullable(element.getClassName()).orElse("Unknown class"),
+          element.getLineNumber()
+        )
+    );
   }
 
   protected List<String> collectErrorMessages(Throwable exception) {
