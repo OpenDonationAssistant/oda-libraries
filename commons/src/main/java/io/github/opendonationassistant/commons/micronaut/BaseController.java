@@ -6,9 +6,10 @@ import java.util.Optional;
 public abstract class BaseController {
 
   protected Optional<String> getOwnerId(Authentication auth) {
-    return Optional.ofNullable(
-      String.valueOf(auth.getAttributes().get("preferred_username"))
-    );
+    return Optional.ofNullable(auth)
+      .map(Authentication::getAttributes)
+      .map(it -> it.get("preferred_username"))
+      .map(String::valueOf);
   }
 
 }
