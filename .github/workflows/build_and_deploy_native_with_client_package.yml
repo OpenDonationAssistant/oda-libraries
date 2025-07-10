@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Release service and client
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      service:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+
+  build-and-push:
+    uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/build_with_npm.yml@main'
+    secrets: inherit
+    with:
+      service: ${{ inputs.service }}
+      version: ${{ inputs.version }}
+
+  # update-deployment-configuration:
+  #   uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/update_version.yml@main'
+  #   needs: build-and-push
+  #   secrets: inherit
+  #   with:
+  #     service: ${{ inputs.service }}
+  #     version: ${{ inputs.version }}
+  #
+  # deploy:
+  #   uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/deploy.yml@main'
+  #   needs: update-deployment-configuration
+  #   secrets: inherit
+  #   with:
+  #     service: ${{ inputs.service }}
+  #     version: ${{ inputs.version }}

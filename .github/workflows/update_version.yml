@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Update service version in specifications
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      service:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout k3s specs
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PUSH_TOKEN }}
+          repository: "OpenDonationAssistant/oda-k3s-specs"
+          path: "scripts"
+
+      - name: Update version
+        uses: teunmooij/yaml@v1
+        with:
+          from-file: 'scripts/deployment/${{ inputs.service }}.yml'
+          to-file: 'scripts/deployment/${{ inputs.service }}.yml'
+          merge: '{ "spec.template.spec.containers[0].image": "ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}" }'
+
+      - name: Commit & Push changes
+        run: |
+          cd scripts
+          git config --global user.email "stcarolas@gmail.com"
+          git config --global user.name "stCarolas"
+          git commit -am "[skip ci] up ${{ inputs.service }} version to ${{ inputs.version }}"
+          git remote set-url origin https://${{ secrets.PUSH_TOKEN }}@github.com/OpenDonationAssistant/oda-k3s-specs
+          git push
