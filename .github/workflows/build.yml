@@ -16,6 +16,10 @@ on:
         type: string
         required: false
         default: 'native-image'
+      npm:
+        type: boolean
+        required: false
+        default: true
 
 jobs:
   update-version:
@@ -35,6 +39,7 @@ jobs:
           repositories: '[{"id":"github","name":"github","url":"https://maven.pkg.github.com/opendonationassistant/oda-libraries","snapshots":{"enabled":true}}]'
 
       - uses: actions/setup-node@v3
+        if: ${{ inputs.npm }}
         with:
           node-version: "20"
 
@@ -42,6 +47,7 @@ jobs:
         run: "mvn -B -q clean package -Dpackaging=${{ inputs.packaging }} -DskipTests"
 
       - name: Install npm package
+        if: ${{ inputs.npm }}
         run: npm install
         working-directory: "target/generated-sources/openapi/"
 
@@ -53,6 +59,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: JS-DevTools/npm-publish@v3
+        if: ${{ inputs.npm }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           registry: "https://npm.pkg.github.com"
