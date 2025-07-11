@@ -12,6 +12,10 @@ on:
       version:
         required: true
         type: string
+      packaging:
+        type: string
+        required: false
+        default: 'native-image'
 
 jobs:
 
@@ -21,6 +25,7 @@ jobs:
     with:
       service: ${{ inputs.service }}
       version: ${{ inputs.version }}
+      packaging: ${{ inputs.packaging }}
 
   # update-deployment-configuration:
   #   uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/update_version.yml@main'

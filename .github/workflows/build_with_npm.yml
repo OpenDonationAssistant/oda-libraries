@@ -12,6 +12,10 @@ on:
       version:
         required: true
         type: string
+      packaging:
+        type: string
+        required: false
+        default: 'native-image'
 
 jobs:
   update-version:
@@ -35,7 +39,7 @@ jobs:
           node-version: "20"
 
       - name: Build with Maven
-        run: mvn -B -q clean package -Dpackaging=native-image -DskipTests
+        run: "mvn -B -q clean package -Dpackaging=${{ inputs.packaging }} -DskipTests"
 
       - name: Install npm package
         run: npm install
