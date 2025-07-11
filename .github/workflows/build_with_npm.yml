@@ -58,7 +58,7 @@ jobs:
           registry: "https://npm.pkg.github.com"
           package: "target/generated-sources/openapi/"
 
-      - run: ls -al
+      - run: ls -al target/
 
       - name: Build and push
         uses: docker/build-push-action@v5
