@@ -19,6 +19,7 @@ public record HistoryItemData(
   String message,
   String cleanMessage,
   String system,
+  String externalId,
   Instant authorizationTimestamp,
   @MappedProperty(type = DataType.JSON) List<Attachment> attachments,
   @MappedProperty(type = DataType.JSON) List<TargetGoal> goals,
