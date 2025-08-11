@@ -115,6 +115,11 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.DONATON);
+        setQueueName(Queue.Payments.DONATON);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.GOAL);
       }},
