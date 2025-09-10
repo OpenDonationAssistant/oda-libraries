@@ -16,6 +16,14 @@ public class CopyFileCommand implements FilesCommand {
     this.destination = destination;
   }
 
+  public MinioCoordinates source(){
+    return this.source;
+  }
+
+  public MinioCoordinates destination(){
+    return this.destination;
+  }
+
   @Serdeable
   public static record MinioCoordinates(String bucketName, String fileName) {}
 }
