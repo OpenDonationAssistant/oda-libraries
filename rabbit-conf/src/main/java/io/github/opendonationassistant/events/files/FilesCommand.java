@@ -10,5 +10,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   property = "type",
   visible = true
 )
-@JsonSubTypes(@Type(value = CreateBucketCommand.class, name = "createBucket"))
+@JsonSubTypes(
+  {
+    @Type(value = CreateBucketCommand.class, name = "createBucket"),
+    @Type(value = CopyFileCommand.class, name = "copyFile"),
+  }
+)
 public interface FilesCommand {}
