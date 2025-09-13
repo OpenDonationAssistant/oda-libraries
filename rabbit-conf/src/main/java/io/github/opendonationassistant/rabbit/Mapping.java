@@ -180,6 +180,11 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.GOALS);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Goal.COMMAND);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.GOALS);
         setRoutingKey(Key.AFTERAUTOMATION);
         setQueueName(Queue.Goal.CALCULATED);
       }},

@@ -7,8 +7,8 @@ import io.micronaut.rabbitmq.annotation.RabbitClient;
 import java.util.Map;
 
 @RabbitClient(Exchange.GOALS)
-public interface GoalSender {
-  final ODALogger log = new ODALogger(GoalSender.class);
+public interface UpdatedGoalSender {
+  final ODALogger log = new ODALogger(UpdatedGoalSender.class);
 
   void send(@Binding String binding, UpdatedGoal goal);
 
