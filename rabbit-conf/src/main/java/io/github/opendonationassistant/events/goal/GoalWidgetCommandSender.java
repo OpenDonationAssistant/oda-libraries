@@ -6,8 +6,8 @@ import io.micronaut.rabbitmq.annotation.RabbitClient;
 import java.util.Map;
 
 @RabbitClient("amq.topic")
-public interface GoalCommandSender {
-  final ODALogger log = new ODALogger(GoalCommandSender.class);
+public interface GoalWidgetCommandSender {
+  final ODALogger log = new ODALogger(GoalWidgetCommandSender.class);
 
   void send(@Binding String binding, GoalCommand command);
 

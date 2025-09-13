@@ -19,7 +19,7 @@ public class RabbitConfiguration extends ChannelInitializer {
     channel.exchangeDeclare(Exchange.EVENTS, BuiltinExchangeType.TOPIC);
     channel.exchangeDeclare(Exchange.GOALS, BuiltinExchangeType.TOPIC);
 
-    Mapping.QUEUES.forEach(queue -> {
+    Mapping.getQueues().forEach(queue -> {
       declareAndBind(channel, queue);
     });
   }
