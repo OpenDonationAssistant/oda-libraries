@@ -3,7 +3,6 @@ package io.github.opendonationassistant.rabbit;
 public class Exchange {
 
   public static class Configs {
-
     public static final String WIDGETS = "changes.widgets";
   }
 
@@ -12,5 +11,6 @@ public class Exchange {
   public static final String COMMANDS = "commands";
   public static final String PAYMENTS = "payments";
   public static final String GOALS = "goals";
+  public static final String WIDGETS = "widgets";
 
 }

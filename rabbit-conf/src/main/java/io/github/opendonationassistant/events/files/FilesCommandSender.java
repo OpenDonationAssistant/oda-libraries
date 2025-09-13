@@ -3,6 +3,7 @@ package io.github.opendonationassistant.events.files;
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
 import io.github.opendonationassistant.rabbit.Key;
+import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import java.util.Map;
@@ -11,10 +12,19 @@ import java.util.Map;
 public interface FilesCommandSender {
   final ODALogger log = new ODALogger(FilesCommandSender.class);
 
-  void send(@Binding String binding, FilesCommand command);
+  void send(
+    @Binding String binding,
+    @MessageHeader String type,
+    FilesCommand command
+  );
 
   default void sendCreateBucketCommand(CreateBucketCommand command) {
     log.info("Send CreateBucketCommand", Map.of("command", command));
-    send(Key.FILES, command);
+    send(Key.FILES, "create-bucket", command);
+  }
+
+  default void sendCopyFileCommand(CopyFileCommand command) {
+    log.info("Send CreateBucketCommand", Map.of("command", command));
+    send(Key.FILES, "copy-file", command);
   }
 }

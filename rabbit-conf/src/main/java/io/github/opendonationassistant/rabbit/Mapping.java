@@ -21,11 +21,6 @@ public class Mapping {
       new QueueParams() {{
         setExchangeName(Exchange.AMQ_TOPIC);
         setRoutingKey(Key.PAYMENTS);
-        setQueueName(Queue.Payments.GOAL);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.AMQ_TOPIC);
-        setRoutingKey(Key.PAYMENTS);
         setQueueName(Queue.Payments.CONTRIBUTIONS);
       }},
       new QueueParams() {{
@@ -100,6 +95,11 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.Configs.WIDGETS);
+        setRoutingKey(Key.DONATIONGOAL);
+        setQueueName(Queue.Configs.GOAL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.MEDIA);
         setQueueName(Queue.Configs.MEDIA);
       }},
@@ -167,6 +167,11 @@ public class Mapping {
         setExchangeName(Exchange.GOALS);
         setRoutingKey(Key.FINALIZED);
         setQueueName(Queue.History.GOAL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.WIDGETS);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Widgets.COMMAND);
       }},
     });
 }

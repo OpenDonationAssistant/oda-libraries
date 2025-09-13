@@ -10,10 +10,13 @@ public class Key {
   public static final String REEL = "reel";
   public static final String DONATON = "donaton";
   public static final String GOAL = "goal";
+  public static final String DONATIONGOAL = "donationgoal";
   public static final String WIDGETS = "widgets";
   public static final String MEDIA = "media";
   public static final String CONTRIBUTIONS = "contributions";
   public static final String NOTIFICATIONS = "notifications";
+
+  public static final String COMMAND = "command";
   public static final String AFTERPAYMENT = "afterpayment";
   public static final String AFTERAUTOMATION = "afterautomation";
   public static final String SYNCED = "synced";
