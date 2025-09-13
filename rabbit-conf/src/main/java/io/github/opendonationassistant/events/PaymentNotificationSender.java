@@ -14,7 +14,7 @@ public interface PaymentNotificationSender {
   }
 
   default void sendToGoals(CompletedPaymentNotification payment) {
-    this.internalSend(Key.GOAL, payment);
+    this.internalSend(Key.DONATIONGOAL, payment);
   }
 
   default void sendToContributions(CompletedPaymentNotification payment) {
