@@ -9,9 +9,9 @@ import java.util.Map;
 public interface GoalWidgetCommandSender {
   final ODALogger log = new ODALogger(GoalWidgetCommandSender.class);
 
-  void send(@Binding String binding, GoalCommand command);
+  void send(@Binding String binding, GoalWidgetCommand command);
 
-  default void sendGoalCommand(String recipientId, GoalCommand command) {
+  default void sendGoalCommand(String recipientId, GoalWidgetCommand command) {
     log.info(
       "Send GoalCommand",
       Map.of("command", command, "recipientId", recipientId)

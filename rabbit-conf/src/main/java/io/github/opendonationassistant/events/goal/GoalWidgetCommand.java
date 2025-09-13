@@ -4,7 +4,7 @@ import io.github.opendonationassistant.commons.Amount;
 import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
-public record GoalCommand(
+public record GoalWidgetCommand(
   String type,
   String goalId,
   String fullDescription,
