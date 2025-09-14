@@ -26,7 +26,7 @@ public class GoalFacade {
     this.sender = sender;
   }
 
-  private void run(Object command) throws IOException {
+  private void runCommand(Object command) throws IOException {
     var commandName = command.getClass().getSimpleName();
     log.debug(commandName, Map.of("command", command));
     sender.sendCommand(
@@ -37,11 +37,11 @@ public class GoalFacade {
 
   public void run(CountPaymentInSpecifiedGoalCommand command)
     throws IOException {
-    this.run(command);
+    this.runCommand(command);
   }
 
   public void run(CountPaymentInDefaultGoalCommand command) throws IOException {
-    this.run(command);
+    this.runCommand(command);
   }
 
   @RabbitClient(Exchange.GOALS)
