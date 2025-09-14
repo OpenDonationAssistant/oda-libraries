@@ -26,21 +26,25 @@ public class GoalFacade {
     this.sender = sender;
   }
 
-  private void runCommand(Object command) throws IOException {
+  private void runCommand(Object command) {
     var commandName = command.getClass().getSimpleName();
     log.debug(commandName, Map.of("command", command));
-    sender.sendCommand(
-      commandName,
-      ObjectMapper.getDefault().writeValueAsBytes(command)
-    );
+    try {
+      sender.sendCommand(
+        commandName,
+        ObjectMapper.getDefault().writeValueAsBytes(command)
+      );
+    } catch (IOException e) {
+      log.error("Error while sending command", Map.of("error", e.getMessage()));
+      throw new RuntimeException(e);
+    }
   }
 
-  public void run(CountPaymentInSpecifiedGoalCommand command)
-    throws IOException {
+  public void run(CountPaymentInSpecifiedGoalCommand command) {
     this.runCommand(command);
   }
 
-  public void run(CountPaymentInDefaultGoalCommand command) throws IOException {
+  public void run(CountPaymentInDefaultGoalCommand command) {
     this.runCommand(command);
   }
 
