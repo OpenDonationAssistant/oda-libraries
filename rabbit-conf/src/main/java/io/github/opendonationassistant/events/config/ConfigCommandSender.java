@@ -1,6 +1,7 @@
 package io.github.opendonationassistant.events.config;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
+import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import io.micronaut.serde.ObjectMapper;
@@ -10,21 +11,26 @@ import java.util.Map;
 @RabbitClient("commands")
 public interface ConfigCommandSender {
   ODALogger log = new ODALogger(ConfigCommandSender.class);
+  ObjectMapper mapper = ObjectMapper.getDefault();
 
-  void send(@Binding String binding, ConfigPutCommand command);
-
-  void sendSerialized(@Binding String binding, String command);
-
-  default void send(ConfigPutCommand command) {
-    // TODO: почему не просто send с биндингом?
-    log.context(Map.of("ConfigPutCommand", command));
-    var mapper = ObjectMapper.getDefault();
-    try {
-      sendSerialized("config", mapper.writeValueAsString(command));
-    } catch (IOException e) {
-      log.info("Can't serialize command", Map.of("command", command));
-      e.printStackTrace();
-    }
-    log.clear();
+  public default void send(ConfigCommand.PutKeyValue command)
+    throws IOException {
+    send("PutKeyValue", command);
   }
+
+  public default void send(ConfigCommand.UpsertAction command)
+    throws IOException {
+    send("UpsertAction", command);
+  }
+
+  default void send(String type, Object command) throws IOException {
+    log.info("Send ConfigCommand", Map.of("type", type, "command", command));
+    send("config", type, mapper.writeValueAsString(command));
+  }
+
+  void send(
+    @Binding String binding,
+    @MessageHeader String type,
+    String command
+  );
 }
