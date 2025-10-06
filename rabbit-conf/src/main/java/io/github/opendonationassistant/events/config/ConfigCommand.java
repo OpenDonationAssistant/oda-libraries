@@ -7,7 +7,7 @@ import java.util.Map;
 public interface ConfigCommand {
   @Serdeable
   public static record PutKeyValue(
-    String recipientId,
+    String ownerId,
     String name,
     String key,
     Object value
