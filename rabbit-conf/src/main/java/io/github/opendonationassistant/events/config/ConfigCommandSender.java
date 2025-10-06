@@ -23,6 +23,11 @@ public interface ConfigCommandSender {
     send("UpsertAction", command);
   }
 
+  public default void send(ConfigCommand.DeleteAction command)
+    throws IOException {
+    send("DeleteAction", command);
+  }
+
   default void send(String type, Object command) throws IOException {
     log.info("Send ConfigCommand", Map.of("type", type, "command", command));
     send("config", type, mapper.writeValueAsString(command));

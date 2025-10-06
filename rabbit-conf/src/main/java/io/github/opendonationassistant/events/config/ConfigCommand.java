@@ -23,4 +23,10 @@ public interface ConfigCommand {
     String game,
     Map<String, Object> payload
   ) {}
+
+  @Serdeable
+  public static record DeleteAction(
+    String recipientId,
+    String id
+  ) {}
 }
