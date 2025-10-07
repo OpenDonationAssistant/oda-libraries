@@ -4,6 +4,7 @@ import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.serde.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
@@ -33,6 +34,7 @@ public interface ConfigCommandSender {
     send("config", type, mapper.writeValueAsString(command));
   }
 
+  @ExecuteOn("publishers")
   void send(
     @Binding String binding,
     @MessageHeader String type,
