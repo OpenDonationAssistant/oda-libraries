@@ -16,26 +16,31 @@ public interface ConfigCommandSender {
 
   public default CompletableFuture<Void> send(
     ConfigCommand.PutKeyValue command
-  ) throws IOException {
+  ) {
     return send("PutKeyValue", command);
   }
 
   public default CompletableFuture<Void> send(
     ConfigCommand.UpsertAction command
-  ) throws IOException {
+  ) {
     return send("UpsertAction", command);
   }
 
   public default CompletableFuture<Void> send(
     ConfigCommand.DeleteAction command
-  ) throws IOException {
+  ) {
     return send("DeleteAction", command);
   }
 
-  default CompletableFuture<Void> send(String type, Object command)
-    throws IOException {
+  default CompletableFuture<Void> send(String type, Object command) {
     log.info("Send ConfigCommand", Map.of("type", type, "command", command));
-    return send("config", type, mapper.writeValueAsString(command));
+    return CompletableFuture.supplyAsync(() -> {
+      try {
+        return mapper.writeValueAsString(command);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }).thenCompose(value -> send("config", type, value));
   }
 
   CompletableFuture<Void> send(
