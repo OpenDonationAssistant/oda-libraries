@@ -4,38 +4,41 @@ import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
-import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.serde.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @RabbitClient("commands")
 public interface ConfigCommandSender {
   ODALogger log = new ODALogger(ConfigCommandSender.class);
   ObjectMapper mapper = ObjectMapper.getDefault();
 
-  public default void send(ConfigCommand.PutKeyValue command)
-    throws IOException {
-    send("PutKeyValue", command);
+  public default CompletableFuture<Void> send(
+    ConfigCommand.PutKeyValue command
+  ) throws IOException {
+    return send("PutKeyValue", command);
   }
 
-  public default void send(ConfigCommand.UpsertAction command)
-    throws IOException {
-    send("UpsertAction", command);
+  public default CompletableFuture<Void> send(
+    ConfigCommand.UpsertAction command
+  ) throws IOException {
+    return send("UpsertAction", command);
   }
 
-  public default void send(ConfigCommand.DeleteAction command)
-    throws IOException {
-    send("DeleteAction", command);
+  public default CompletableFuture<Void> send(
+    ConfigCommand.DeleteAction command
+  ) throws IOException {
+    return send("DeleteAction", command);
   }
 
-  default void send(String type, Object command) throws IOException {
+  default CompletableFuture<Void> send(String type, Object command)
+    throws IOException {
     log.info("Send ConfigCommand", Map.of("type", type, "command", command));
-    send("config", type, mapper.writeValueAsString(command));
+    return send("config", type, mapper.writeValueAsString(command));
   }
 
-  @ExecuteOn("publishers")
-  void send(
+  CompletableFuture<Void> send(
     @Binding String binding,
     @MessageHeader String type,
     String command
