@@ -8,7 +8,6 @@ public class PaymentFacade {
   public static record ActionRequest(
     String id,
     String actionId,
-    String provider,
     Object payload
   ) {}
 }
