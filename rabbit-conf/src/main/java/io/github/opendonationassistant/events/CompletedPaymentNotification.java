@@ -2,9 +2,9 @@ package io.github.opendonationassistant.events;
 
 import io.github.opendonationassistant.commons.Amount;
 import io.github.opendonationassistant.events.alerts.AlertNotification;
+import io.github.opendonationassistant.events.payments.PaymentFacade.ActionRequest;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.annotation.Nonnull;
-
 import java.time.Instant;
 import java.util.List;
 
@@ -20,7 +20,8 @@ public record CompletedPaymentNotification(
   List<String> attachments,
   String goal,
   Instant authorizationTimestamp,
-  @Nonnull String system
+  @Nonnull String system,
+  @Nonnull List<ActionRequest> actions
 ) {
   public AlertNotification asAlertNotification() {
     return new AlertNotification(
