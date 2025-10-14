@@ -15,7 +15,8 @@ public record AlertNotification(
   List<String> attachments,
   String goal,
   Instant authorizationTimestamp,
-  AlertMedia media
+  AlertMedia media,
+  String system
 ) {
   public AlertNotification withMedia(AlertMedia newMedia) {
     return new AlertNotification(
@@ -27,7 +28,8 @@ public record AlertNotification(
       attachments,
       goal,
       authorizationTimestamp,
-      newMedia
+      newMedia,
+      system
     );
   }
 

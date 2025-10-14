@@ -3,6 +3,8 @@ package io.github.opendonationassistant.events;
 import io.github.opendonationassistant.commons.Amount;
 import io.github.opendonationassistant.events.alerts.AlertNotification;
 import io.micronaut.serde.annotation.Serdeable;
+import jakarta.annotation.Nonnull;
+
 import java.time.Instant;
 import java.util.List;
 
@@ -17,7 +19,8 @@ public record CompletedPaymentNotification(
   Amount amount,
   List<String> attachments,
   String goal,
-  Instant authorizationTimestamp
+  Instant authorizationTimestamp,
+  @Nonnull String system
 ) {
   public AlertNotification asAlertNotification() {
     return new AlertNotification(
@@ -29,7 +32,8 @@ public record CompletedPaymentNotification(
       attachments,
       goal,
       authorizationTimestamp,
-      null
+      null,
+      system
     );
   }
 }
