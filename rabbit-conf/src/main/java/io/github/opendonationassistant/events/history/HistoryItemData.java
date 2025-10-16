@@ -28,5 +28,5 @@ public record HistoryItemData(
   @MappedProperty(type = DataType.JSON) List<ActionRequest> actions
 ) {
   @Serdeable
-  record ActionRequest(String id, String actionId, Map<String, Object> payload){}
+  public record ActionRequest(String id, String actionId, Map<String, Object> payload){}
 }
