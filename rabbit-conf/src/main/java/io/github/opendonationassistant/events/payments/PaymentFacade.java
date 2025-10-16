@@ -1,5 +1,7 @@
 package io.github.opendonationassistant.events.payments;
 
+import java.util.Map;
+
 import io.micronaut.serde.annotation.Serdeable;
 
 public class PaymentFacade {
@@ -8,6 +10,6 @@ public class PaymentFacade {
   public static record ActionRequest(
     String id,
     String actionId,
-    Object payload
+    Map<String, Object> payload
   ) {}
 }
