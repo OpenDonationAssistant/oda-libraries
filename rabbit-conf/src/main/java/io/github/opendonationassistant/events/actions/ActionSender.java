@@ -5,15 +5,16 @@ import io.github.opendonationassistant.rabbit.Exchange;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import io.micronaut.serde.annotation.Serdeable;
+import java.util.List;
 import java.util.Map;
 
 @RabbitClient(Exchange.AMQ_TOPIC)
 public interface ActionSender {
   static ODALogger log = new ODALogger(ActionSender.class);
 
-  void internalSend(@Binding String binding, ActionRequest request);
+  void internalSend(@Binding String binding, List<ActionRequest> request);
 
-  default void send(String recipientId, ActionRequest request) {
+  default void send(String recipientId, List<ActionRequest> request) {
     log.info("Send ActionRequest", Map.of("request", request));
     internalSend("%s.actions".formatted(recipientId), request);
   }
