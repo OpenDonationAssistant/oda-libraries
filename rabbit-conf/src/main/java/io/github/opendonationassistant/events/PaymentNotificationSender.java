@@ -13,6 +13,10 @@ public interface PaymentNotificationSender {
     this.internalSend(Key.PAYMENTS, payment);
   }
 
+  default void sendToActions(CompletedPaymentNotification payment) {
+    this.internalSend(Key.ACTIONS, payment);
+  }
+
   default void sendToGoals(CompletedPaymentNotification payment) {
     this.internalSend(Key.DONATIONGOAL, payment);
   }
