@@ -4,6 +4,7 @@ public class Key {
 
   public static final String PAYMENTS = "payments";
   public static final String HISTORY = "history";
+  public static final String ACTIONS = "actions";
   public static final String CONFIG = "config";
   public static final String FILES = "files";
   public static final String ALERTS = "alerts";

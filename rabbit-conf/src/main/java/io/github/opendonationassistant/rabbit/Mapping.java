@@ -60,7 +60,12 @@ public class Mapping {
         setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.DONATIONGOAL);
         setQueueName(Queue.Payments.GOAL);
-      }}
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.ACTIONS);
+        setQueueName(Queue.Payments.ACTIONS);
+      }},
     });
 
   public static final List<QueueParams> OLD =
