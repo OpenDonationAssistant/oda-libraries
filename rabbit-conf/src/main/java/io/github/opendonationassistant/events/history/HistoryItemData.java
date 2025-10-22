@@ -28,7 +28,7 @@ public record HistoryItemData(
   @MappedProperty(type = DataType.JSON) List<TargetGoal> goals,
   @MappedProperty(type = DataType.JSON) List<ReelResult> reelResults,
   @MappedProperty(type = DataType.JSON) List<ActionRequest> actions,
-  @Nullable @MappedProperty(type = DataType.JSON) AlertMedia media
+  @Nullable @MappedProperty(type = DataType.JSON) AlertMedia alertMedia
 ) {
   @Serdeable
   public record ActionRequest(String id, String actionId, Map<String, Object> payload){}
