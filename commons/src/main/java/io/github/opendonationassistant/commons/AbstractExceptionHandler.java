@@ -24,6 +24,9 @@ public class AbstractExceptionHandler {
         () -> putMDC(exception.getStackTrace()[0], exception)
       );
     log.error("Server Error");
+    if (log.isDebugEnabled()) {
+      exception.printStackTrace();
+    }
     MDC.clear();
   }
 
