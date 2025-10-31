@@ -24,6 +24,7 @@ public interface ActionSender {
     String id,
     String actionId,
     String provider,
+    String nickname,
     Map<String, Object> payload
   ) {}
 }
