@@ -6,7 +6,6 @@ import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.data.model.DataType;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.annotation.Nullable;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,12 @@ public record HistoryItemData(
   @Nullable @MappedProperty(type = DataType.JSON) AlertMedia alertMedia
 ) {
   @Serdeable
-  public record ActionRequest(String id, String actionId, Integer amount, Map<String, Object> payload){}
+  public record ActionRequest(
+    String id,
+    String actionId,
+    Integer amount,
+    Map<String, Object> payload
+  ) {}
   @Serdeable
-  public record AlertMedia(String url){}
+  public record AlertMedia(String url) {}
 }

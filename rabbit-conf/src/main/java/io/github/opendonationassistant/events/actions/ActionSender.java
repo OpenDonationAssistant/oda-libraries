@@ -23,6 +23,7 @@ public interface ActionSender {
   public static record ActionRequest(
     String id,
     String actionId,
+    Integer amount,
     String provider,
     String nickname,
     Map<String, Object> payload
