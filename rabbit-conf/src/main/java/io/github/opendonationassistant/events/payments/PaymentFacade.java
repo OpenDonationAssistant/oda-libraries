@@ -10,6 +10,7 @@ public class PaymentFacade {
   public static record ActionRequest(
     String id,
     String actionId,
+    Integer amount,
     Map<String, Object> payload
   ) {}
 }

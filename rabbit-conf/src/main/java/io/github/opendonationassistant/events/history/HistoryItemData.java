@@ -31,7 +31,7 @@ public record HistoryItemData(
   @Nullable @MappedProperty(type = DataType.JSON) AlertMedia alertMedia
 ) {
   @Serdeable
-  public record ActionRequest(String id, String actionId, Map<String, Object> payload){}
+  public record ActionRequest(String id, String actionId, Integer amount, Map<String, Object> payload){}
   @Serdeable
   public record AlertMedia(String url){}
 }
