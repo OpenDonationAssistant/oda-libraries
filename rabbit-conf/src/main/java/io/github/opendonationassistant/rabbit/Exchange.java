@@ -11,6 +11,7 @@ public class Exchange {
   // messageheader = тип команды/эвента
   public static final String PAYMENTS = "payments";
   public static final String GOALS = "goals";
+  public static final String ACTIONS = "actions";
   public static final String WIDGETS = "widgets";
 
   public static class Configs {

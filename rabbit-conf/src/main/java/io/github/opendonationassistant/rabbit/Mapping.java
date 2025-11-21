@@ -147,6 +147,15 @@ public class Mapping {
       }},
     });
 
+  public static final List<QueueParams> ACTIONS =
+    Arrays.asList(new QueueParams[] {
+      new QueueParams() {{
+        setExchangeName(Exchange.ACTIONS);
+        setRoutingKey(Key.FINALIZED);
+        setQueueName(Queue.History.ACTIONS);
+      }}
+    });
+
   public static final List<QueueParams> WIDGETS =
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
@@ -205,16 +214,6 @@ public class Mapping {
       }}
     });
 
-  // TODO используются?
-  public static final List<QueueParams> WIDGETS_COMMAND =
-    Arrays.asList(new QueueParams[] {
-      new QueueParams() {{
-        setExchangeName(Exchange.WIDGETS);
-        setRoutingKey(Key.COMMAND);
-        setQueueName(Queue.Widgets.COMMAND);
-      }},
-    });
-
   public static List<QueueParams> getQueues() {
     var result = new ArrayList<QueueParams>();
     result.addAll(PAYMENTS);
@@ -222,7 +221,7 @@ public class Mapping {
     result.addAll(COMMANDS);
     result.addAll(WIDGETS);
     result.addAll(GOALS);
-    result.addAll(WIDGETS_COMMAND);
+    result.addAll(ACTIONS);
     return result;
   }
 

@@ -1,31 +1,34 @@
 package io.github.opendonationassistant.events.actions;
 
-import io.github.opendonationassistant.commons.logging.ODALogger;
+import io.github.opendonationassistant.commons.Amount;
 import io.github.opendonationassistant.rabbit.Exchange;
+import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import io.micronaut.serde.annotation.Serdeable;
 import java.util.List;
 import java.util.Map;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-@RabbitClient(Exchange.AMQ_TOPIC)
+@RabbitClient(Exchange.ACTIONS)
 public interface ActionSender {
-  static ODALogger log = new ODALogger(ActionSender.class);
+  void internalSend(@Binding String binding, List<Action> actions);
 
-  void internalSend(@Binding String binding, List<ActionRequest> request);
-
-  default void send(String recipientId, List<ActionRequest> request) {
-    log.info("Send ActionRequest", Map.of("request", request));
-    internalSend("%s.actions".formatted(recipientId), request);
+  default void publishCreatedActions(List<Action> actions) {
+    internalSend(Key.FINALIZED, actions);
   }
 
   @Serdeable
-  public static record ActionRequest(
+  public static record Action(
     String id,
-    String actionId,
-    Integer amount,
-    String provider,
-    String nickname,
-    Map<String, Object> payload
+    @NonNull String recipientId,
+    @Nullable String category,
+    @NonNull String provider,
+    @NonNull String name,
+    @NonNull Amount amount,
+    @Nullable String game,
+    Boolean enabled,
+    @NonNull Map<String, Object> payload
   ) {}
 }

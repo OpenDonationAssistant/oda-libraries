@@ -42,6 +42,7 @@ public class Queue {
 
   public static class History {
     public static final String GOAL = "history.goal";
+    public static final String ACTIONS = "history.actions";
   }
 
   public static class Configs {

@@ -34,6 +34,7 @@ public interface ConfigCommandSender {
 
   default CompletableFuture<Void> send(String type, Object command) {
     log.info("Send ConfigCommand", Map.of("type", type, "command", command));
+    // TODO почему сериализация в отдельном потоке
     return CompletableFuture.supplyAsync(() -> {
       try {
         return mapper.writeValueAsString(command);
