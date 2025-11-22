@@ -32,6 +32,18 @@ public record CompletedPaymentNotification(
       amount,
       attachments,
       goal,
+      actions
+        .stream()
+        .map(it ->
+          new AlertNotification.ActionRequest(
+            it.id(),
+            it.actionId(),
+            "", // TODO use HistoryItem for alerts
+            it.amount(),
+            it.payload()
+          )
+        )
+        .toList(),
       authorizationTimestamp,
       null,
       system
