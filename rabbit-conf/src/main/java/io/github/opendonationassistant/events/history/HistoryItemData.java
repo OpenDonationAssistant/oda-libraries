@@ -33,6 +33,7 @@ public record HistoryItemData(
   public record ActionRequest(
     String id,
     String actionId,
+    String name,
     Integer amount,
     Map<String, Object> payload
   ) {}
