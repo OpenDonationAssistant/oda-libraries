@@ -33,7 +33,6 @@ public interface ConfigCommandSender {
   }
 
   default CompletableFuture<Void> send(String type, Object command) {
-    log.info("Send ConfigCommand", Map.of("type", type, "command", command));
     // TODO почему сериализация в отдельном потоке
     return CompletableFuture.supplyAsync(() -> {
       try {
@@ -41,7 +40,10 @@ public interface ConfigCommandSender {
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
-    }).thenCompose(value -> send("config", type, value));
+    }).thenCompose(value -> {
+      log.info("Send ConfigCommand", Map.of("type", type, "command", command));
+      return send("config", type, value);
+    });
   }
 
   CompletableFuture<Void> send(
