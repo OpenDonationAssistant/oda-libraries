@@ -21,5 +21,6 @@ public class Key {
   public static final String AFTERPAYMENT = "afterpayment";
   public static final String AFTERAUTOMATION = "afterautomation";
   public static final String SYNCED = "synced";
+
   public static final String FINALIZED = "finalized";
 }

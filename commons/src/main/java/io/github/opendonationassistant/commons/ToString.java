@@ -12,7 +12,8 @@ public class ToString {
       """;
     try {
       value = mapper.writeValueAsString(target);
-    } catch (Exception e) {}
+    } catch (Exception e) {
+    }
     return value;
   }
 }

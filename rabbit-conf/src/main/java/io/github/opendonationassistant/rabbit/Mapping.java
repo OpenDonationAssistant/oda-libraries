@@ -189,13 +189,13 @@ public class Mapping {
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
         setExchangeName(Exchange.GOALS);
-        setRoutingKey(Key.AFTERPAYMENT);
-        setQueueName(Queue.Automation.GOAL);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Goal.COMMAND);
       }},
       new QueueParams() {{
         setExchangeName(Exchange.GOALS);
-        setRoutingKey(Key.COMMAND);
-        setQueueName(Queue.Goal.COMMAND);
+        setRoutingKey(Key.AFTERPAYMENT);
+        setQueueName(Queue.Automation.GOAL);
       }},
       new QueueParams() {{
         setExchangeName(Exchange.GOALS);
