@@ -50,5 +50,12 @@ public class Queue {
     public static final String REEL = "config.reel";
     public static final String DONATON = "config.donaton";
     public static final String MEDIA = "config.media";
+    public static final String EVENTS = "config.events";
+  }
+
+  public static class Voting {
+    public static final String COMMAND = "voting.command";
+    public static final String STATE = "voting.state";
+    public static final String EVENTS = "voting.events";
   }
 }

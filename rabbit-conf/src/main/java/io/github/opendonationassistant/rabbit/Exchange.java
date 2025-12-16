@@ -13,6 +13,7 @@ public class Exchange {
   public static final String GOALS = "goals";
   public static final String ACTIONS = "actions";
   public static final String WIDGETS = "widgets";
+  public static final String VOTING = "voting";
 
   public static class Configs {
 

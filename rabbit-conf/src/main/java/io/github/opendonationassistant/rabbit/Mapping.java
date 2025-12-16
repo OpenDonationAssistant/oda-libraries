@@ -1,9 +1,7 @@
 package io.github.opendonationassistant.rabbit;
 
-import io.github.opendonationassistant.rabbit.Queue.Payments;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 // prettier-ignore ON
@@ -214,6 +212,25 @@ public class Mapping {
       }}
     });
 
+  public static final List<QueueParams> VOTING =
+    Arrays.asList(new QueueParams[] {
+      new QueueParams() {{
+        setExchangeName(Exchange.VOTING);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Voting.COMMAND);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.VOTING);
+        setRoutingKey(Key.ALL);
+        setQueueName(Queue.Configs.EVENTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS);
+        setQueueName(Queue.Voting.EVENTS);
+      }}
+    });
+
   public static List<QueueParams> getQueues() {
     var result = new ArrayList<QueueParams>();
     result.addAll(PAYMENTS);
@@ -222,6 +239,7 @@ public class Mapping {
     result.addAll(WIDGETS);
     result.addAll(GOALS);
     result.addAll(ACTIONS);
+    result.addAll(VOTING);
     return result;
   }
 
