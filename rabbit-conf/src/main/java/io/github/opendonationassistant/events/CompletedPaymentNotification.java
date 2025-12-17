@@ -5,6 +5,8 @@ import io.github.opendonationassistant.events.alerts.AlertNotification;
 import io.github.opendonationassistant.events.payments.PaymentFacade.ActionRequest;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 import java.time.Instant;
 import java.util.List;
 
@@ -21,7 +23,8 @@ public record CompletedPaymentNotification(
   String goal,
   Instant authorizationTimestamp,
   @Nonnull String system,
-  @Nonnull List<ActionRequest> actions
+  @Nonnull List<ActionRequest> actions,
+  @Nullable Vote vote
 ) {
   public AlertNotification asAlertNotification() {
     return new AlertNotification(
@@ -49,4 +52,7 @@ public record CompletedPaymentNotification(
       system
     );
   }
+
+  @Serdeable
+  public static record Vote(@Nullable String id, String name, Boolean isNew){}
 }
