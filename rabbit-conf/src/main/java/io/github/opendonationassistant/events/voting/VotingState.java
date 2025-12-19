@@ -6,7 +6,9 @@ import java.util.List;
 @Serdeable
 public record VotingState(
   String id,
+  String recipientId,
   String name,
+  Conversion conversion,
   List<VoteOptionState> options
 ) {
   @Serdeable
@@ -16,5 +18,11 @@ public record VotingState(
     Integer votes,
     Boolean isDefault,
     Boolean userCreated
+  ) {}
+
+  @Serdeable
+  public static record Conversion(
+    Integer originAmount,
+    Integer convertedAmount
   ) {}
 }
