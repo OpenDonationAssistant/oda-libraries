@@ -7,11 +7,13 @@
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>ODA Libraries</name>
+
   <parent>
     <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.10.2</version>
+    <version>4.10.4</version>
   </parent>
+
   <properties>
     <buildNumber>1</buildNumber>
     <revision>0.9.${buildNumber}</revision>
@@ -22,21 +24,25 @@
     <jdk.version>25</jdk.version>
     <release.version>25</release.version>
     <micronaut.runtime>netty</micronaut.runtime>
-    <micronaut.version>4.10.2</micronaut.version>
+    <micronaut.version>4.10.4</micronaut.version>
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.test.resources.enabled>true</micronaut.test.resources.enabled>
     <micronaut.aot.enabled>false</micronaut.aot.enabled>
   </properties>
+
   <modules>
     <module>commons</module>
     <module>rabbit-conf</module>
+    <module>test-utils</module>
   </modules>
+
   <repositories>
     <repository>
       <id>central</id>
       <url>https://repo.maven.apache.org/maven2</url>
     </repository>
   </repositories>
+
   <distributionManagement>
     <repository>
       <id>github</id>
@@ -44,6 +50,7 @@
       <url>https://maven.pkg.github.com/opendonationassistant/oda-libraries</url>
     </repository>
   </distributionManagement>
+
   <build>
     <plugins>
       <plugin>
@@ -85,4 +92,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>

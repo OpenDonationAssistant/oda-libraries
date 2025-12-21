@@ -26,7 +26,7 @@ public class VotingFacage {
 
   public CompletableFuture<Void> sendState(VotingState state) {
     log.debug("Send Voting state", Map.of("state", state));
-    return client.send(Key.ALL, "Voting", state);
+    return client.send(Key.ALL, VotingState.MESSAGE_TYPE, state);
   }
 
   @RabbitClient(Exchange.VOTING)

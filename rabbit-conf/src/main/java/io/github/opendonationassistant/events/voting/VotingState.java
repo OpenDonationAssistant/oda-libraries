@@ -11,6 +11,9 @@ public record VotingState(
   Conversion conversion,
   List<VoteOptionState> options
 ) {
+
+  public static final String MESSAGE_TYPE = "VotingState";
+
   @Serdeable
   public static record VoteOptionState(
     String id,
