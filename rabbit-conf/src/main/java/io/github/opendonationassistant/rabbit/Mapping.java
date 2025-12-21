@@ -26,7 +26,7 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey(Key.PAYMENTS);
+        setRoutingKey(Key.PAYMENTS); // TODO Delete
         setQueueName(Queue.Payments.CONTRIBUTIONS);
       }},
       new QueueParams() {{
@@ -63,6 +63,11 @@ public class Mapping {
         setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.ACTIONS);
         setQueueName(Queue.Payments.ACTIONS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.CONTRIBUTIONS); // TODO Delete
+        setQueueName(Queue.Payments.CONTRIBUTIONS);
       }},
     });
 
