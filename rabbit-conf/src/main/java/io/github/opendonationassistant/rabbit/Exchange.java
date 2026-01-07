@@ -15,6 +15,7 @@ public class Exchange {
   public static final String WIDGETS = "widgets";
   public static final String VOTING = "voting";
   public static final String TWITCH = "twitch";
+  public static final String REEL = "reel";
 
   public static class Configs {
 

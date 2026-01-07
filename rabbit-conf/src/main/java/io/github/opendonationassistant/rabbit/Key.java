@@ -19,6 +19,7 @@ public class Key {
 
   public static final String COMMAND = "command";
   public static final String ALL = "all";
+
   public static final String AFTERPAYMENT = "afterpayment";
   public static final String AFTERAUTOMATION = "afterautomation";
   public static final String SYNCED = "synced";
