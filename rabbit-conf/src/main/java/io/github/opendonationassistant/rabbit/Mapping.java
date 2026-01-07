@@ -236,6 +236,15 @@ public class Mapping {
       }}
     });
 
+  public static final List<QueueParams> TWITCH =
+    Arrays.asList(new QueueParams[] {
+      new QueueParams() {{
+        setExchangeName(Exchange.TWITCH);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Twitch.COMMAND);
+      }}
+    });
+
   public static List<QueueParams> getQueues() {
     var result = new ArrayList<QueueParams>();
     result.addAll(PAYMENTS);
@@ -245,6 +254,7 @@ public class Mapping {
     result.addAll(GOALS);
     result.addAll(ACTIONS);
     result.addAll(VOTING);
+    result.addAll(TWITCH);
     return result;
   }
 

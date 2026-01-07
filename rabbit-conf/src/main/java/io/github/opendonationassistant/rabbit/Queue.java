@@ -58,4 +58,10 @@ public class Queue {
     public static final String STATE = "voting.state";
     public static final String EVENTS = "voting.events";
   }
+
+  public static class Twitch {
+    public static final String COMMAND = "twitch.command";
+    // public static final String STATE = "twitch.state";
+    // public static final String EVENTS = "twitch.events";
+  }
 }

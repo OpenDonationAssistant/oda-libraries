@@ -14,6 +14,7 @@ public class Exchange {
   public static final String ACTIONS = "actions";
   public static final String WIDGETS = "widgets";
   public static final String VOTING = "voting";
+  public static final String TWITCH = "twitch";
 
   public static class Configs {
 

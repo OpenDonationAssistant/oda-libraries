@@ -13,13 +13,15 @@ public class GlobalExceptionHandler
 
   @Override
   public HttpResponse<Problem> handle(
-    HttpRequest request,
+    @SuppressWarnings("rawtypes") HttpRequest request,
     RuntimeException exception
   ) {
     log(exception);
 
     return HttpResponse.serverError(
-      Problem.builder().withTitle("Internal Server Error").build()
+      Problem.builder()
+        .withTitle("Internal Server Error")
+        .build()
     );
   }
 }

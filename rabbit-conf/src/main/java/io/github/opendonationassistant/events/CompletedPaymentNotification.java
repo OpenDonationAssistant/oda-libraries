@@ -6,7 +6,6 @@ import io.github.opendonationassistant.events.payments.PaymentFacade.ActionReque
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-
 import java.time.Instant;
 import java.util.List;
 
@@ -54,5 +53,5 @@ public record CompletedPaymentNotification(
   }
 
   @Serdeable
-  public static record Vote(@Nullable String id, String name, Boolean isNew){}
+  public static record Vote(@Nullable String id, String name, Boolean isNew) {}
 }
