@@ -1,4 +1,4 @@
-package io.github.opendonationassistant.events.twitch;
+package io.github.opendonationassistant.events.reel;
 
 import static io.github.opendonationassistant.commons.ToString.asBytes;
 
@@ -14,25 +14,23 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Singleton
-public class TwitchFacade {
+public class ReelFacade {
 
   private final ODALogger log = new ODALogger(this);
-  private final TwitchMessagingClient client;
+  private final ReelMessagingClient client;
 
   @Inject
-  public TwitchFacade(TwitchMessagingClient client) {
+  public ReelFacade(ReelMessagingClient client) {
     this.client = client;
   }
 
-  public CompletableFuture<Void> subscribe(
-    TwitchCommand.SubscribeEvent command
-  ) {
-    log.info("Send SubscribeEvent", Map.of("command", command));
-    return client.sendCommand("SubscribeEvent", command);
+  public CompletableFuture<Void> sendRunResult(ReelRunResult result) {
+    log.debug("Send Reel Run Result", Map.of("result", result));
+    return client.send(Key.ALL, "ReelRunResult", result);
   }
 
-  @RabbitClient(Exchange.TWITCH)
-  public static interface TwitchMessagingClient {
+  @RabbitClient(Exchange.REEL)
+  public static interface ReelMessagingClient {
     CompletableFuture<Void> sendMessage(
       @Binding String binding,
       @MessageHeader String type,
@@ -45,13 +43,6 @@ public class TwitchFacade {
       Object payload
     ) {
       return sendMessage(binding, type, asBytes(payload));
-    }
-
-    default CompletableFuture<Void> sendCommand(
-      @MessageHeader String type,
-      Object payload
-    ) {
-      return sendMessage(Key.COMMAND, type, asBytes(payload));
     }
   }
 }
