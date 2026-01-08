@@ -31,6 +31,20 @@ public class TwitchFacade {
     return client.sendCommand("SubscribeEvent", command);
   }
 
+  public CompletableFuture<Void> unsubscribe(
+    TwitchCommand.UnsubscribeAllEvent command
+  ) {
+    log.info("Send UnsubscribeAllEvent", Map.of("command", command));
+    return client.sendCommand("UnsubscribeAllEvent", command);
+  }
+
+  public CompletableFuture<Void> unsubscribe(
+    TwitchCommand.UnsubscribeEvent command
+  ) {
+    log.info("Send UnsubscribeEvent", Map.of("command", command));
+    return client.sendCommand("UnsubscribeEvent", command);
+  }
+
   @RabbitClient(Exchange.TWITCH)
   public static interface TwitchMessagingClient {
     CompletableFuture<Void> sendMessage(
