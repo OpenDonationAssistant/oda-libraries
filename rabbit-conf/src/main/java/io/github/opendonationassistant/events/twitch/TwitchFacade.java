@@ -24,6 +24,12 @@ public class TwitchFacade {
     this.client = client;
   }
 
+  public CompletableFuture<Void> sendEvent(Object payload) {
+    log.info("Send TwitchEvent", Map.of("payload", payload));
+    var type = payload.getClass().getSimpleName();
+    return client.send("event.%s".formatted(type), type, payload);
+  }
+
   public CompletableFuture<Void> subscribe(
     TwitchCommand.SubscribeEvent command
   ) {

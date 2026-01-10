@@ -26,7 +26,7 @@ public class ReelFacade {
 
   public CompletableFuture<Void> sendRunResult(ReelRunResult result) {
     log.debug("Send Reel Run Result", Map.of("result", result));
-    return client.send(Key.ALL, "ReelRunResult", result);
+    return client.send("event.ReelRunResult", "ReelRunResult", result);
   }
 
   @RabbitClient(Exchange.REEL)

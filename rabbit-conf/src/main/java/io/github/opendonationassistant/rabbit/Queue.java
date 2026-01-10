@@ -3,6 +3,7 @@ package io.github.opendonationassistant.rabbit;
 public class Queue {
 
   public static class Commands {
+
     public static final String HISTORY = "commands.history";
     public static final String CONFIG = "commands.config";
     public static final String FILES = "commands.files";
@@ -13,10 +14,12 @@ public class Queue {
   }
 
   public static class Widgets {
+
     public static final String COMMAND = "widgets.command";
   }
 
   public static class Payments {
+
     public static final String MEDIA = "payments";
     public static final String AUTOMATION = "payments.automation";
     public static final String ACTIONS = "payments.actions";
@@ -30,10 +33,12 @@ public class Queue {
 
   public static class Automation {
 
+    public static final String EVENTS = "automation.events";
     public static final String GOAL = "automation.goals";
   }
 
   public static class Goal {
+
     public static final String COMMAND = "goal.command";
     public static final String CALCULATED = "goal.calculated";
     public static final String SYNCED = "goal.calculated";
@@ -41,11 +46,14 @@ public class Queue {
   }
 
   public static class History {
+
     public static final String GOAL = "history.goal";
     public static final String ACTIONS = "history.actions";
+    public static final String EVENTS = "history.events";
   }
 
   public static class Configs {
+
     public static final String GOAL = "config.goals";
     public static final String REEL = "config.reel";
     public static final String DONATON = "config.donaton";
@@ -54,12 +62,14 @@ public class Queue {
   }
 
   public static class Voting {
+
     public static final String COMMAND = "voting.command";
     public static final String STATE = "voting.state";
     public static final String EVENTS = "voting.events";
   }
 
   public static class Twitch {
+
     public static final String COMMAND = "twitch.command";
     // public static final String STATE = "twitch.state";
     // public static final String EVENTS = "twitch.events";

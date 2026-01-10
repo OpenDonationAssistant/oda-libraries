@@ -242,6 +242,11 @@ public class Mapping {
         setExchangeName(Exchange.TWITCH);
         setRoutingKey(Key.COMMAND);
         setQueueName(Queue.Twitch.COMMAND);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.TWITCH);
+        setRoutingKey("event.*");
+        setQueueName(Queue.Twitch.COMMAND);
       }}
     });
 
