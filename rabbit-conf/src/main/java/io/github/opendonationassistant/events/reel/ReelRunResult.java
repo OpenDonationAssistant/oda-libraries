@@ -8,5 +8,6 @@ import io.micronaut.serde.annotation.Serdeable;
 public record ReelRunResult(
   String recipientId,
   @Nullable String paymentId,
-  String widgetId
+  String widgetId,
+  String optionId
 ) {}
