@@ -44,5 +44,5 @@ public class UIFacade {
   public static record Event(String type, List<Variable> variables) {}
 
   @Serdeable
-  public static record Variable(String name, Object value, String type) {}
+  public static record Variable(String id, String name, Object value, String type) {}
 }
