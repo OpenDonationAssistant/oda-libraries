@@ -7,11 +7,14 @@ import io.micronaut.rabbitmq.annotation.RabbitClient;
 import io.micronaut.serde.ObjectMapper;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+@Singleton
 public class UIFacade {
 
   private final ODALogger log = new ODALogger(this);
@@ -23,7 +26,7 @@ public class UIFacade {
   }
 
   public CompletableFuture<Void> sendEvent(String recipientId, Event event) {
-    log.debug("Send UIEvent", Map.of("message", event));
+    log.debug("Send message to UI", Map.of("message", event));
     return CompletableFuture.supplyAsync(() -> {
       try {
         return ObjectMapper.getDefault().writeValueAsBytes(event);
@@ -41,8 +44,17 @@ public class UIFacade {
   }
 
   @Serdeable
-  public static record Event(String type, List<Variable> variables) {}
+  public static record Event(
+    String id,
+    String type,
+    List<Variable> variables
+  ) {}
 
   @Serdeable
-  public static record Variable(String id, String name, Object value, String type) {}
+  public static record Variable(
+    String id,
+    String name,
+    Object value,
+    String type
+  ) {}
 }

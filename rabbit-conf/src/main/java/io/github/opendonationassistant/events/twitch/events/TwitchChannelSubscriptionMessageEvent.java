@@ -4,7 +4,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import java.util.List;
 
 @Serdeable
-public record ChannelSubscriptionMessageEvent(
+public record TwitchChannelSubscriptionMessageEvent(
+  String id,
   String recipientId,
   String username,
   String tier,

@@ -1,12 +1,13 @@
 package io.github.opendonationassistant.events.twitch.events;
 
-import java.time.Instant;
-
 import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
-public record ChannelFollowEvent(
+public record TwitchChannelSubscriptionGift(
+  String id,
   String recipientId,
   String username,
-  Instant timestamp
+  String tier,
+  Number amount,
+  Number total
 ) {}

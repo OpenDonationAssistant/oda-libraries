@@ -1,12 +1,13 @@
 package io.github.opendonationassistant.events.twitch.events;
 
 import io.micronaut.serde.annotation.Serdeable;
+import jakarta.annotation.Nullable;
 
 @Serdeable
-public record ChannelSubscriptionGiftEvent(
+public record TwitchChannelCheerEvent(
+  String id,
   String recipientId,
-  String username,
-  String tier,
-  Number amount,
-  Number total
+  @Nullable String username,
+  String message,
+  String bits
 ) {}

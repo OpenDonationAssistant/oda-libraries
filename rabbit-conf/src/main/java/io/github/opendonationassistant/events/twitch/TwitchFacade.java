@@ -33,21 +33,21 @@ public class TwitchFacade {
   public CompletableFuture<Void> subscribe(
     TwitchCommand.SubscribeEvent command
   ) {
-    log.info("Send SubscribeEvent", Map.of("command", command));
+    log.info("Send SubscribeCommand", Map.of("command", command));
     return client.sendCommand("SubscribeEvent", command);
   }
 
   public CompletableFuture<Void> unsubscribe(
     TwitchCommand.UnsubscribeAllEvent command
   ) {
-    log.info("Send UnsubscribeAllEvent", Map.of("command", command));
+    log.info("Send UnsubscribeAllCommand", Map.of("command", command));
     return client.sendCommand("UnsubscribeAllEvent", command);
   }
 
   public CompletableFuture<Void> unsubscribe(
     TwitchCommand.UnsubscribeEvent command
   ) {
-    log.info("Send UnsubscribeEvent", Map.of("command", command));
+    log.info("Send UnsubscribeCommand", Map.of("command", command));
     return client.sendCommand("UnsubscribeEvent", command);
   }
 
@@ -71,7 +71,7 @@ public class TwitchFacade {
       @MessageHeader String type,
       Object payload
     ) {
-      return sendMessage(Key.COMMAND, type, asBytes(payload));
+      return send(Key.COMMAND, type, payload);
     }
   }
 }
