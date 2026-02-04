@@ -242,12 +242,16 @@ public class Mapping {
         setExchangeName(Exchange.TWITCH);
         setRoutingKey(Key.COMMAND);
         setQueueName(Queue.Twitch.COMMAND);
-      }},
+      }}
+    });
+
+  public static final List<QueueParams> AUTOMATION =
+    Arrays.asList(new QueueParams[] {
       new QueueParams() {{
         setExchangeName(Exchange.TWITCH);
         setRoutingKey("event.*");
-        setQueueName(Queue.Twitch.STATE);
-      }}
+        setQueueName(Queue.Automation.EVENTS);
+      }},
     });
 
   public static List<QueueParams> getQueues() {
