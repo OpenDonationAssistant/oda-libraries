@@ -246,7 +246,7 @@ public class Mapping {
       new QueueParams() {{
         setExchangeName(Exchange.TWITCH);
         setRoutingKey("event.*");
-        setQueueName(Queue.Twitch.COMMAND);
+        setQueueName(Queue.Twitch.STATE);
       }}
     });
 

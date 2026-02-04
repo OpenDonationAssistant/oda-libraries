@@ -71,7 +71,7 @@ public class Queue {
   public static class Twitch {
 
     public static final String COMMAND = "twitch.command";
-    // public static final String STATE = "twitch.state";
-    // public static final String EVENTS = "twitch.events";
+    public static final String STATE = "twitch.state";
+    public static final String EVENTS = "twitch.events";
   }
 }
