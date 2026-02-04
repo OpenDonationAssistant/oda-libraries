@@ -1,3 +1,8 @@
 package io.github.opendonationassistant.events.twitch.events;
 
-public record TwitchChannelPollBeginEvent(String id, String recipientId) {}
+import org.jspecify.annotations.NonNull;
+
+public record TwitchChannelPollBeginEvent(
+    @NonNull String id,
+    @NonNull String recipientId
+) {}
