@@ -11,4 +11,11 @@ public interface TwitchCommand {
 
   @Serdeable
   public static record UnsubscribeAllEvent(String twitchId) {}
+
+  @Serdeable
+  public static record LinkAccount(
+    String recipientId,
+    String twitchId,
+    String twitchLogin
+  ) {}
 }

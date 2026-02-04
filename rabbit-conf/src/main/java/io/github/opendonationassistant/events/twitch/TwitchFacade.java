@@ -51,6 +51,11 @@ public class TwitchFacade {
     return client.sendCommand("UnsubscribeEvent", command);
   }
 
+  public CompletableFuture<Void> link(TwitchCommand.LinkAccount command) {
+    log.info("Send LinkCommand", Map.of("command", command));
+    return client.sendCommand("LinkAccount", command);
+  }
+
   @RabbitClient(Exchange.TWITCH)
   public static interface TwitchMessagingClient {
     CompletableFuture<Void> sendMessage(
