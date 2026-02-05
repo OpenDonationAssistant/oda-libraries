@@ -269,6 +269,7 @@ public class Mapping {
     result.addAll(ACTIONS);
     result.addAll(VOTING);
     result.addAll(TWITCH);
+    result.addAll(AUTOMATION);
     return result;
   }
 
