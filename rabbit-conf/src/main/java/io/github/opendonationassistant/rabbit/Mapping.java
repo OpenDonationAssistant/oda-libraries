@@ -56,6 +56,11 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey(Key.REEL);
+        setQueueName(Queue.Payments.REEL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
         setRoutingKey(Key.DONATIONGOAL);
         setQueueName(Queue.Payments.GOAL);
       }},
