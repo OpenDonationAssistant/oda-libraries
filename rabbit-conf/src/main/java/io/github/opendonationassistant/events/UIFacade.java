@@ -25,7 +25,7 @@ public class UIFacade {
   }
 
   public CompletableFuture<Void> sendEvent(String recipientId, Event event) {
-    log.debug("Send message to UI", Map.of("message", event));
+    log.debug("Send message to UI", Map.of("recipientId", recipientId,"message", event));
     return CompletableFuture.supplyAsync(() -> {
       try {
         return ObjectMapper.getDefault().writeValueAsBytes(event);
@@ -33,12 +33,8 @@ public class UIFacade {
         throw new RuntimeException(e);
       }
     }).thenCompose(payload -> {
-      log.debug(
-        "Send message to UI",
-        Map.of("recipientId", recipientId, "message", payload)
-      );
       return sender.sendEvent(
-        "/topic/%s.events".formatted(recipientId),
+        "%s.events".formatted(recipientId),
         payload
       );
     });
