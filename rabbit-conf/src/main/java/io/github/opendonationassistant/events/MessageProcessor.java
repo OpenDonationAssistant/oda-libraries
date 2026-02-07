@@ -19,12 +19,17 @@ public class MessageProcessor {
   }
 
   public void process(String type, byte[] message) {
+    log.debug("Process message", Map.of("type", type));
     handlers
       .stream()
       .filter(handler -> handler.type().equals(type))
       .findFirst()
       .ifPresent(handler -> {
         try {
+          log.debug(
+            "Found handler for message",
+            Map.of("type", type, "handler", handler.getClass().getSimpleName())
+          );
           handler.handle(message);
         } catch (IOException e) {
           log.error(

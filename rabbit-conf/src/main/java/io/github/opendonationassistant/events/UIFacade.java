@@ -8,7 +8,6 @@ import io.micronaut.serde.ObjectMapper;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +32,16 @@ public class UIFacade {
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
-    }).thenCompose(payload ->
-      sender.sendEvent("/topic/%s.events".formatted(recipientId), payload)
-    );
+    }).thenCompose(payload -> {
+      log.debug(
+        "Send message to UI",
+        Map.of("recipientId", recipientId, "message", payload)
+      );
+      return sender.sendEvent(
+        "/topic/%s.events".formatted(recipientId),
+        payload
+      );
+    });
   }
 
   @RabbitClient(Exchange.AMQ_TOPIC)
