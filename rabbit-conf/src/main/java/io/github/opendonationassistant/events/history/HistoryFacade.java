@@ -30,6 +30,12 @@ public class HistoryFacade {
     return client.sendEvent(type, payload);
   }
 
+  public CompletableFuture<Void> sendCommand(Object payload) {
+    log.info("Send HistoryCommand", Map.of("payload", payload));
+    var type = payload.getClass().getSimpleName();
+    return client.sendCommand(type, payload);
+  }
+
   @RabbitClient(Exchange.TWITCH)
   public static interface HistoryMessagingClient {
     CompletableFuture<Void> send(
