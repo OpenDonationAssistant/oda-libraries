@@ -8,9 +8,12 @@ import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+@Singleton
 public class PaymentFacade {
 
   private final PaymentNotificationSender sender;
@@ -28,7 +31,7 @@ public class PaymentFacade {
   }
 
   @RabbitClient(Exchange.PAYMENTS)
-  public interface PaymentNotificationSender {
+  public static interface PaymentNotificationSender {
     CompletableFuture<Void> send(
       @Binding String binding,
       @MessageHeader String type,
