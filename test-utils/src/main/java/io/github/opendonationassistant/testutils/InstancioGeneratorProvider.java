@@ -1,7 +1,6 @@
 package io.github.opendonationassistant.testutils;
 
 import io.github.opendonationassistant.commons.Amount;
-import io.github.opendonationassistant.events.CompletedPaymentNotification;
 import io.micronaut.security.authentication.Authentication;
 import org.instancio.Node;
 import org.instancio.generator.GeneratorSpec;
@@ -17,9 +16,9 @@ public class InstancioGeneratorProvider implements GeneratorProvider {
     final Generators gen
   ) {
     final Class<?> targetClass = node.getTargetClass();
-    if (targetClass.equals(CompletedPaymentNotification.class)) {
-      return new CompletedPaymentNotificationGenerator();
-    }
+    // if (targetClass.equals(CompletedPaymentNotification.class)) {
+    //   return new CompletedPaymentNotificationGenerator();
+    // }
     if (targetClass.equals(Authentication.class)) {
       return new AuthenticationGenerator();
     }

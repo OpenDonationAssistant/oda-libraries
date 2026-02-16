@@ -1,14 +1,13 @@
 package io.github.opendonationassistant.events.widget;
 
-import java.util.Map;
-
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
 import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
+import java.util.Map;
 
-@RabbitClient(Exchange.COMMANDS)
+@RabbitClient(Exchange.WIDGETS)
 public interface WidgetCommandSender {
   final ODALogger log = new ODALogger(WidgetCommandSender.class);
 
@@ -16,6 +15,6 @@ public interface WidgetCommandSender {
 
   default void send(WidgetUpdateCommand command) {
     log.info("Send WidgetUpdateCommand", Map.of("command", command));
-    send(Key.WIDGETS, command);
+    send(Key.COMMAND, command);
   }
 }

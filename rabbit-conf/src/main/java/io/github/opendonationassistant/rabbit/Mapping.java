@@ -12,14 +12,36 @@ public class Mapping {
   public static final List<QueueParams> WIDGETS =
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
+        setExchangeName(Exchange.WIDGETS);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Commands.WIDGETS);
+      }},
+    });
+
+  public static final List<QueueParams> REEL =
+    Arrays.asList(new QueueParams[] {
+      new QueueParams() {{
         setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.REEL);
         setQueueName(Queue.Configs.REEL);
-      }},
+      }}
+    });
+
+  public static final List<QueueParams> DONATON =
+    Arrays.asList(new QueueParams[] {
       new QueueParams() {{
         setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.DONATON);
         setQueueName(Queue.Configs.DONATON);
+      }},
+    });
+
+  public static final List<QueueParams> FILES =
+    Arrays.asList(new QueueParams[] {
+      new QueueParams() {{
+        setExchangeName(Exchange.FILES);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Commands.FILES);
       }},
     });
 
@@ -129,6 +151,8 @@ public class Mapping {
     var result = new ArrayList<QueueParams>();
     result.addAll(ACTIONS);
     result.addAll(WIDGETS);
+    result.addAll(REEL);
+    result.addAll(DONATON);
     result.addAll(GOALS);
     result.addAll(VOTING);
     result.addAll(TWITCH);

@@ -7,7 +7,7 @@ import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import java.util.Map;
 
-@RabbitClient(Exchange.COMMANDS)
+// @RabbitClient(Exchange.COMMANDS)
 public interface AlertCommandSender {
   static ODALogger log = new ODALogger(AlertCommandSender.class);
 

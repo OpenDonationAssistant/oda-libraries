@@ -3,13 +3,12 @@ package io.github.opendonationassistant.events.widget;
 import io.github.opendonationassistant.commons.ToString;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.serde.annotation.Serdeable;
-import jakarta.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 
 @Serdeable
-public record WidgetConfig(@Nonnull List<WidgetProperty> properties) {
-  public @Nonnull Optional<WidgetProperty> getProperty(String name) {
+public record WidgetConfig(List<WidgetProperty> properties) {
+  public Optional<WidgetProperty> getProperty(String name) {
     if (StringUtils.isEmpty(name)) {
       return Optional.empty();
     }
@@ -19,8 +18,8 @@ public record WidgetConfig(@Nonnull List<WidgetProperty> properties) {
       .findFirst();
   }
 
-  public <T> Optional<T> getValue(String name){
-    return this.getProperty(name).map(it -> (T)it);
+  public <T> Optional<T> getValue(String name) {
+    return this.getProperty(name).map(it -> (T) it);
   }
 
   @Override

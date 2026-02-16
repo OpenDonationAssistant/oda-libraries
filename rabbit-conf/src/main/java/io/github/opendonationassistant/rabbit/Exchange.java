@@ -18,6 +18,7 @@ public class Exchange {
   public static final String HISTORY = "history";
   public static final String MEDIA = "media";
   public static final String REEL = "reel";
+  public static final String FILES = "files";
 
   public static class Configs {
     public static final String WIDGETS = "changes.widgets";
