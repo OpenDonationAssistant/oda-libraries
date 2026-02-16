@@ -1,6 +1,7 @@
 package io.github.opendonationassistant.events;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
+import io.micronaut.rabbitmq.bind.RabbitAcknowledgement;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class MessageProcessor {
     this.handlers = handlers;
   }
 
-  public void process(String type, byte[] message) {
+  public void process(String type, byte[] message, RabbitAcknowledgement ack) {
     log.debug("Process message", Map.of("type", type));
     handlers
       .stream()
@@ -31,6 +32,7 @@ public class MessageProcessor {
             Map.of("type", type, "handler", handler.getClass().getSimpleName())
           );
           handler.handle(message);
+          ack.ack();
         } catch (IOException e) {
           log.error(
             "Error parsing TwitchChannelRaidEvent",

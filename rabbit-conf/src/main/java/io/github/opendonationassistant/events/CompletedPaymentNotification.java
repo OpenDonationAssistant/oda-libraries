@@ -21,8 +21,7 @@ public record CompletedPaymentNotification(
   List<String> attachments,
   String goal,
   Instant authorizationTimestamp,
-  @Nonnull String system,
-  @Nonnull List<ActionRequest> actions,
+  List<ActionRequest> actions,
   @Nullable Vote vote
 ) {
   public AlertNotification asAlertNotification() {
