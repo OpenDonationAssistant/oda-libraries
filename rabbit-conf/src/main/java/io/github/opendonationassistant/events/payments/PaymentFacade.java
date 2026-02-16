@@ -1,16 +1,45 @@
 package io.github.opendonationassistant.events.payments;
 
-import java.util.Map;
+import static io.github.opendonationassistant.commons.ToString.asBytes;
 
-import io.micronaut.serde.annotation.Serdeable;
+import io.github.opendonationassistant.commons.logging.ODALogger;
+import io.github.opendonationassistant.rabbit.Exchange;
+import io.micronaut.messaging.annotation.MessageHeader;
+import io.micronaut.rabbitmq.annotation.Binding;
+import io.micronaut.rabbitmq.annotation.RabbitClient;
+import jakarta.inject.Inject;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class PaymentFacade {
 
-  @Serdeable
-  public static record ActionRequest(
-    String id,
-    String actionId,
-    Integer amount,
-    Map<String, Object> payload
-  ) {}
+  private final PaymentNotificationSender sender;
+  private final ODALogger log = new ODALogger(this);
+
+  @Inject
+  public PaymentFacade(PaymentNotificationSender sender) {
+    this.sender = sender;
+  }
+
+  public CompletableFuture<Void> sendEvent(Object event) {
+    log.debug("Send PaymentEvent", Map.of("message", event));
+    var type = event.getClass().getSimpleName();
+    return sender.sendEvent(type, event);
+  }
+
+  @RabbitClient(Exchange.PAYMENTS)
+  public interface PaymentNotificationSender {
+    CompletableFuture<Void> send(
+      @Binding String binding,
+      @MessageHeader String type,
+      byte[] command
+    );
+
+    default CompletableFuture<Void> sendEvent(
+      @MessageHeader String type,
+      Object payload
+    ) {
+      return send("event.%s".formatted(type), type, asBytes(payload));
+    }
+  }
 }

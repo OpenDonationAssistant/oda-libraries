@@ -1,4 +1,4 @@
-package io.github.opendonationassistant.events;
+package io.github.opendonationassistant.events.ui;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;

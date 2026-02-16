@@ -15,13 +15,11 @@ public class Exchange {
   public static final String WIDGETS = "widgets";
   public static final String VOTING = "voting";
   public static final String TWITCH = "twitch";
+  public static final String HISTORY = "history";
+  public static final String MEDIA = "media";
   public static final String REEL = "reel";
 
   public static class Configs {
-
     public static final String WIDGETS = "changes.widgets";
   }
-
-  public static final String EVENTS = "events";
-  public static final String COMMANDS = "commands";
 }

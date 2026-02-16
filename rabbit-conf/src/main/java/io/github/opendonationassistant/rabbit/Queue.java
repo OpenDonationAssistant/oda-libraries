@@ -64,14 +64,18 @@ public class Queue {
   public static class Voting {
 
     public static final String COMMAND = "voting.command";
-    public static final String STATE = "voting.state";
     public static final String EVENTS = "voting.events";
   }
 
   public static class Twitch {
 
     public static final String COMMAND = "twitch.command";
-    public static final String STATE = "twitch.state";
     public static final String EVENTS = "twitch.events";
+  }
+
+  public static class Media {
+
+    public static final String COMMAND = "media.command";
+    public static final String EVENTS = "media.events";
   }
 }

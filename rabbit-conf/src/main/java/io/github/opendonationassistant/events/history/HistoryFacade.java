@@ -36,7 +36,7 @@ public class HistoryFacade {
     return client.sendCommand(type, payload);
   }
 
-  @RabbitClient(Exchange.TWITCH)
+  @RabbitClient(Exchange.HISTORY)
   public static interface HistoryMessagingClient {
     CompletableFuture<Void> send(
       @Binding String binding,

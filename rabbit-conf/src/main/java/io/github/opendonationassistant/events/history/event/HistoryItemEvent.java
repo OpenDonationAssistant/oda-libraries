@@ -22,7 +22,6 @@ public record HistoryItemEvent(
   List<ActionRequest> actions,
   @Nullable Vote vote
 ) {
-
   @Serdeable
   public static record ActionRequest(
     String id,
