@@ -13,7 +13,7 @@ public record HistoryItemEvent(
   String type,
   String recipientId,
   String system,
-  String originId,
+  @Nullable String originId,
   Instant timestamp,
   @Nullable String nickname,
   @Nullable Amount amount,

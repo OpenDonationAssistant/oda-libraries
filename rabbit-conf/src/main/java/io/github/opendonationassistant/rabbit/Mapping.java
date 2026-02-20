@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.opendonationassistant.rabbit.Queue.Payments;
+
 // prettier-ignore ON
 public class Mapping {
 
@@ -24,6 +26,15 @@ public class Mapping {
         setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.REEL);
         setQueueName(Queue.Configs.REEL);
+      }}
+    });
+
+  public static final List<QueueParams> RECIPIENT =
+    Arrays.asList(new QueueParams[] {
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey("event.HistoryItemEvent");
+        setQueueName(Payments.CONTRIBUTIONS);
       }}
     });
 

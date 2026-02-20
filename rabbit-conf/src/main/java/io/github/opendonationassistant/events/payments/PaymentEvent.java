@@ -31,5 +31,9 @@ public record PaymentEvent(
   ) {}
 
   @Serdeable
-  public static record Vote(@Nullable String id, String name, Boolean isNew) {}
+  public static record Vote(
+    @Nullable String id,
+    @Nullable String name,
+    Boolean isNew
+  ) {}
 }
