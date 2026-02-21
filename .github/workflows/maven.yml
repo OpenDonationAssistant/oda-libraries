@@ -29,3 +29,8 @@ jobs:
         run: mvn --batch-mode deploy -pl 'rabbit-conf' -DbuildNumber=${{ github.RUN_NUMBER }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish test-utils
+        run: mvn --batch-mode deploy -pl 'test-utils' -DbuildNumber=${{ github.RUN_NUMBER }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
