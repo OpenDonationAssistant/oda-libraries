@@ -9,9 +9,13 @@ public class AuthenticationGenerator implements Generator<Authentication> {
 
   @Override
   public Authentication generate(Random random) {
+    return forUser("testuser");
+  }
+
+  public static Authentication forUser(String recipientId) {
     return Authentication.build(
-      random.alphanumeric(10),
-      Map.of("preferred_username", "testuser")
+      recipientId,
+      Map.of("preferred_username", recipientId)
     );
   }
 }
