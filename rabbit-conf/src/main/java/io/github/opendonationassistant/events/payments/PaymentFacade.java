@@ -1,15 +1,13 @@
 package io.github.opendonationassistant.events.payments;
 
-import static io.github.opendonationassistant.commons.ToString.asBytes;
-
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
+import io.micronaut.serde.ObjectMapper;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -18,16 +16,23 @@ public class PaymentFacade {
 
   private final PaymentNotificationSender sender;
   private final ODALogger log = new ODALogger(this);
+  private final ObjectMapper mapper;
 
   @Inject
-  public PaymentFacade(PaymentNotificationSender sender) {
+  public PaymentFacade(PaymentNotificationSender sender, ObjectMapper mapper) {
     this.sender = sender;
+    this.mapper = mapper;
   }
 
   public CompletableFuture<Void> sendEvent(Object event) {
     log.debug("Send PaymentEvent", Map.of("message", event));
     var type = event.getClass().getSimpleName();
-    return sender.sendEvent(type, event);
+    try {
+      return sender.sendEvent(type, mapper.writeValueAsBytes(event));
+    } catch (Exception e) {
+      log.error("Serialization error", Map.of("error", e.getMessage()));
+      throw new RuntimeException(e);
+    }
   }
 
   @RabbitClient(Exchange.PAYMENTS)
@@ -40,9 +45,9 @@ public class PaymentFacade {
 
     default CompletableFuture<Void> sendEvent(
       @MessageHeader String type,
-      Object payload
+      byte[] event
     ) {
-      return send("event.%s".formatted(type), type, asBytes(payload));
+      return send("event.%s".formatted(type), type, event);
     }
   }
 }
