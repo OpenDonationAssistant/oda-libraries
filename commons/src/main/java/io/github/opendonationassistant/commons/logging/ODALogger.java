@@ -26,18 +26,27 @@ public class ODALogger {
   }
 
   public void info(String message, Map<String, ?> context) {
+    if (!log.isInfoEnabled()) {
+      return;
+    }
     this.context(context);
     this.log.info(message);
     this.clear();
   }
 
   public void debug(String message, Map<String, ?> context) {
+    if (!log.isDebugEnabled()) {
+      return;
+    }
     this.context(context);
     this.log.debug(message);
     this.clear();
   }
 
   public void error(String message, Map<String, ?> context) {
+    if (!log.isErrorEnabled()) {
+      return;
+    }
     this.context(context);
     this.log.error(message);
     this.clear();
