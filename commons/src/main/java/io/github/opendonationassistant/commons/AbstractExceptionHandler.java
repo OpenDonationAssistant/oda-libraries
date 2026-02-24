@@ -12,7 +12,7 @@ public class AbstractExceptionHandler {
 
   private Logger log = LoggerFactory.getLogger(AbstractExceptionHandler.class);
 
-  protected void log(Exception exception) {
+  protected void log(Exception exception, String id) {
     Arrays.asList(exception.getStackTrace())
       .stream()
       .filter(element ->
@@ -23,7 +23,7 @@ public class AbstractExceptionHandler {
         element -> putMDC(element, exception),
         () -> putMDC(exception.getStackTrace()[0], exception)
       );
-    log.error("Server Error");
+    log.error("Server Error {}", id);
     if (log.isDebugEnabled()) {
       exception.printStackTrace();
     }

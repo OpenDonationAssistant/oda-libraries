@@ -1,5 +1,7 @@
 package io.github.opendonationassistant.rabbit;
 
+import java.util.UUID;
+
 import io.github.opendonationassistant.commons.AbstractExceptionHandler;
 import io.micronaut.rabbitmq.exception.RabbitListenerException;
 import io.micronaut.rabbitmq.exception.RabbitListenerExceptionHandler;
@@ -10,6 +12,7 @@ public class RabbitExceptionHandler
 
   @Override
   public void handle(RabbitListenerException exception) {
-    log(exception);
+    var id = UUID.randomUUID().toString();
+    log(exception, id);
   }
 }
