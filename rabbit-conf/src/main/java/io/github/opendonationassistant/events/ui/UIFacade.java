@@ -18,10 +18,12 @@ public class UIFacade {
 
   private final ODALogger log = new ODALogger(this);
   private final UIEventSender sender;
+  private final ObjectMapper mapper;
 
   @Inject
-  public UIFacade(UIEventSender sender) {
+  public UIFacade(UIEventSender sender, ObjectMapper mapper) {
     this.sender = sender;
+    this.mapper = mapper;
   }
 
   public CompletableFuture<Void> sendEvent(String recipientId, Event event) {
@@ -29,15 +31,14 @@ public class UIFacade {
       "Send message to UI",
       Map.of("recipientId", recipientId, "message", event)
     );
-    return CompletableFuture.supplyAsync(() -> {
-      try {
-        return ObjectMapper.getDefault().writeValueAsBytes(event);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-    }).thenCompose(payload -> {
-      return sender.sendEvent("%s.events".formatted(recipientId), payload);
-    });
+    try {
+      return sender.sendEvent(
+        "%s.events".formatted(recipientId),
+        mapper.writeValueAsBytes(event)
+      );
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @RabbitClient(Exchange.AMQ_TOPIC)

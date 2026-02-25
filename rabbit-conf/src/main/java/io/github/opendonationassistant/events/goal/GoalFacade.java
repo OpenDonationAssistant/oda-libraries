@@ -20,10 +20,12 @@ public class GoalFacade {
   private final ODALogger log = new ODALogger(this);
 
   private final GoalCommandSender sender;
+  private final ObjectMapper mapper;
 
   @Inject
-  public GoalFacade(GoalCommandSender sender) {
+  public GoalFacade(GoalCommandSender sender, ObjectMapper mapper) {
     this.sender = sender;
+    this.mapper = mapper;
   }
 
   public void run(CountPaymentInSpecifiedGoalCommand command) {
@@ -44,10 +46,7 @@ public class GoalFacade {
     var commandName = command.getClass().getSimpleName();
     log.debug(commandName, Map.of("command", command));
     try {
-      sender.sendCommand(
-        commandName,
-        ObjectMapper.getDefault().writeValueAsBytes(command)
-      );
+      sender.sendCommand(commandName, mapper.writeValueAsBytes(command));
     } catch (IOException e) {
       log.error("Error while sending command", Map.of("error", e.getMessage()));
       throw new RuntimeException(e);
