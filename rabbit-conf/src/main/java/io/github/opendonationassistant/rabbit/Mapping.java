@@ -1,10 +1,9 @@
 package io.github.opendonationassistant.rabbit;
 
+import io.github.opendonationassistant.rabbit.Queue.Payments;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import io.github.opendonationassistant.rabbit.Queue.Payments;
 
 // prettier-ignore ON
 public class Mapping {
@@ -79,11 +78,6 @@ public class Mapping {
         setQueueName(Queue.Goal.FINISHED);
       }},
       new QueueParams() {{
-        setExchangeName(Exchange.GOALS);
-        setRoutingKey(Key.FINALIZED);
-        setQueueName(Queue.History.GOAL);
-      }},
-      new QueueParams() {{
         setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.GOAL);
         setQueueName(Queue.Configs.GOAL);
@@ -129,7 +123,7 @@ public class Mapping {
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
         setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey("event.*");
+        setRoutingKey("event.PaymentEvent");
         setQueueName(Queue.History.EVENTS);
       }},
       new QueueParams() {{
@@ -141,7 +135,17 @@ public class Mapping {
         setExchangeName(Exchange.ACTIONS);
         setRoutingKey(Key.FINALIZED); // TODO Change key and queue
         setQueueName(Queue.History.ACTIONS);
-      }}
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.GOALS);
+        setRoutingKey(Key.FINALIZED);
+        setQueueName(Queue.History.GOAL);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey("event.MediaHistoryEvent");
+        setQueueName(Queue.History.EVENTS);
+      }},
     });
 
   public static final List<QueueParams> MEDIA =
