@@ -58,6 +58,16 @@ public class Mapping {
   public static final List<QueueParams> GOALS =
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey("event.PaymentEvent");
+        setQueueName(Queue.Goal.EVENTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey("event.HistoryItemEvent");
+        setQueueName(Queue.Goal.EVENTS);
+      }},
+      new QueueParams() {{
         setExchangeName(Exchange.GOALS);
         setRoutingKey(Key.COMMAND);
         setQueueName(Queue.Goal.COMMAND);

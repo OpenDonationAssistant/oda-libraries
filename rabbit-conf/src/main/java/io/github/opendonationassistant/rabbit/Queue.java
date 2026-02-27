@@ -43,6 +43,7 @@ public class Queue {
     public static final String CALCULATED = "goal.calculated";
     public static final String SYNCED = "goal.calculated";
     public static final String FINISHED = "goal.finished";
+    public static final String EVENTS = "goal.events";
   }
 
   public static class History {
