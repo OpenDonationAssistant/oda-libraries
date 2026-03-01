@@ -40,16 +40,10 @@ public interface ConfigCommandSender {
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
-    })
-      .thenCompose(value -> {
-        log.info(
-          "Send ConfigCommand",
-          Map.of("type", type, "command", command)
-        );
-        return send("config", type, value);
-      })
-      .thenRun(() -> log.debug("ConfigCommand Sent", Map.of("command", command))
-      );
+    }).thenCompose(value -> {
+      log.info("Send ConfigCommand", Map.of("type", type, "command", command));
+      return send("config", type, value);
+    });
   }
 
   CompletableFuture<Void> send(

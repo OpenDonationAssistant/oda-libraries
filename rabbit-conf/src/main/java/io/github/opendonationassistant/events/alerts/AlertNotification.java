@@ -5,25 +5,27 @@ import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @Serdeable
 public record AlertNotification(
   String id,
-  String nickname,
-  String message,
+  String type,
+  @Nullable String nickname,
+  @Nullable String message,
   String recipientId,
-  Amount amount,
-  @NonNull List<String> attachments,
-  String goal,
-  @NonNull List<ActionRequest> actions,
+  @Nullable Amount amount,
+  List<String> attachments,
+  @Nullable String goal,
+  List<ActionRequest> actions,
   Instant authorizationTimestamp,
-  AlertMedia media,
+  @Nullable AlertMedia media,
   String system
 ) {
   public AlertNotification withMedia(AlertMedia newMedia) {
     return new AlertNotification(
       id,
+      type,
       nickname,
       message,
       recipientId,
