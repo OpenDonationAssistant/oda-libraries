@@ -5,20 +5,28 @@
   <artifactId>oda-commons</artifactId>
   <version>${revision}</version>
   <packaging>${packaging}</packaging>
+
   <parent>
     <groupId>io.github.opendonationassistant</groupId>
     <artifactId>oda-libraries-aggregate-pom</artifactId>
     <version>1.0.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+
   <properties>
     <packaging>jar</packaging>
   </properties>
   <dependencies>
     <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
     </dependency>
+    <!-- todo remove  -->
     <dependency>
       <groupId>io.micronaut.serde</groupId>
       <artifactId>micronaut-serde-jackson</artifactId>
