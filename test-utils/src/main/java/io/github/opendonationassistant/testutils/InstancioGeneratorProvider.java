@@ -16,9 +16,6 @@ public class InstancioGeneratorProvider implements GeneratorProvider {
     final Generators gen
   ) {
     final Class<?> targetClass = node.getTargetClass();
-    // if (targetClass.equals(CompletedPaymentNotification.class)) {
-    //   return new CompletedPaymentNotificationGenerator();
-    // }
     if (targetClass.equals(Authentication.class)) {
       return new AuthenticationGenerator();
     }
