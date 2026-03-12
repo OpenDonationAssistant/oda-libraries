@@ -25,7 +25,17 @@ public class Mapping {
         setExchangeName(Exchange.Configs.WIDGETS);
         setRoutingKey(Key.REEL);
         setQueueName(Queue.Configs.REEL);
-      }}
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey("event.HistoryItemEvent");
+        setQueueName(Queue.Reel.EVENTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey("event.PaymentEvent");
+        setQueueName(Queue.Reel.EVENTS);
+      }},
     });
 
   public static final List<QueueParams> RECIPIENT =
@@ -142,20 +152,15 @@ public class Mapping {
         setQueueName(Queue.History.EVENTS);
       }},
       new QueueParams() {{
-        setExchangeName(Exchange.ACTIONS);
-        setRoutingKey(Key.FINALIZED); // TODO Change key and queue
-        setQueueName(Queue.History.ACTIONS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.GOALS);
-        setRoutingKey(Key.FINALIZED);
-        setQueueName(Queue.History.GOAL);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY);
+        setExchangeName(Exchange.HISTORY); // TODO Should be Exchange.MEDIA
         setRoutingKey("event.MediaHistoryEvent");
         setQueueName(Queue.History.EVENTS);
       }},
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.History.COMMAND);
+      }}
     });
 
   public static final List<QueueParams> MEDIA =
