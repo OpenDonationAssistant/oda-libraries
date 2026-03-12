@@ -12,10 +12,10 @@ import java.util.Map;
 public class MessageProcessor {
 
   private final ODALogger log = new ODALogger(this);
-  private List<MessageHandler> handlers;
+  private List<MessageHandler<?>> handlers;
 
   @Inject
-  public MessageProcessor(List<MessageHandler> handlers) {
+  public MessageProcessor(List<MessageHandler<?>> handlers) {
     this.handlers = handlers;
   }
 
@@ -33,9 +33,9 @@ public class MessageProcessor {
           );
           handler.handle(message);
           ack.ack();
-        } catch (IOException e) {
+        } catch (Exception e) {
           log.error(
-            "Error parsing TwitchChannelRaidEvent",
+            "Error processing message",
             Map.of("error", e.getLocalizedMessage())
           );
         }
