@@ -71,4 +71,10 @@ public class Queue {
     public static final String COMMAND = "reel.command";
     public static final String EVENTS = "reel.events";
   }
+
+  public static class Donaton {
+
+    public static final String COMMAND = "donaton.command";
+    public static final String EVENTS = "donaton.events";
+  }
 }
