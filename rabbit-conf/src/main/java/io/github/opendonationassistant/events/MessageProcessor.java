@@ -4,7 +4,6 @@ import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.rabbitmq.bind.RabbitAcknowledgement;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 

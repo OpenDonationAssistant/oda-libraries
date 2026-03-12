@@ -1,11 +1,14 @@
 package io.github.opendonationassistant.events;
 
+import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.serde.ObjectMapper;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.Map;
 
 public abstract class AbstractMessageHandler<T> implements MessageHandler<T> {
 
+  private final ODALogger log = new ODALogger(this);
   private final ObjectMapper mapper;
 
   public AbstractMessageHandler(ObjectMapper mapper) {
@@ -17,6 +20,7 @@ public abstract class AbstractMessageHandler<T> implements MessageHandler<T> {
     if (payload == null) {
       return;
     }
+    log.info("Processing Message", Map.of("payload", payload));
     handle(payload);
   }
 
