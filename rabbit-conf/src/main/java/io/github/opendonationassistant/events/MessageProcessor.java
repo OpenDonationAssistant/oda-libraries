@@ -4,6 +4,7 @@ import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.rabbitmq.bind.RabbitAcknowledgement;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class MessageProcessor {
     this.handlers = handlers;
   }
 
+  @Transactional
   public void process(String type, byte[] message, RabbitAcknowledgement ack) {
     log.debug("Process message", Map.of("type", type));
     handlers

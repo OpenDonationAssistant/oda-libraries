@@ -157,6 +157,11 @@ public class Mapping {
         setQueueName(Queue.History.EVENTS);
       }},
       new QueueParams() {{
+        setExchangeName(Exchange.DONATON);
+        setRoutingKey("event.DonatonDeadlineChanged");
+        setQueueName(Queue.History.EVENTS);
+      }},
+      new QueueParams() {{
         setExchangeName(Exchange.HISTORY);
         setRoutingKey(Key.COMMAND);
         setQueueName(Queue.History.COMMAND);

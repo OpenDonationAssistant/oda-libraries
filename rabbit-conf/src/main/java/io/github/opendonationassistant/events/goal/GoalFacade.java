@@ -36,12 +36,6 @@ public class GoalFacade {
     this.runCommand(command);
   }
 
-  @RabbitClient(Exchange.GOALS)
-  public static interface GoalCommandSender {
-    @Binding(Key.COMMAND)
-    void sendCommand(@MessageHeader String type, byte[] command);
-  }
-
   private void runCommand(Object command) {
     var commandName = command.getClass().getSimpleName();
     log.debug(commandName, Map.of("command", command));
@@ -51,6 +45,12 @@ public class GoalFacade {
       log.error("Error while sending command", Map.of("error", e.getMessage()));
       throw new RuntimeException(e);
     }
+  }
+
+  @RabbitClient(Exchange.GOALS)
+  public static interface GoalCommandSender {
+    @Binding(Key.COMMAND)
+    void sendCommand(@MessageHeader String type, byte[] command);
   }
 
   @Serdeable
