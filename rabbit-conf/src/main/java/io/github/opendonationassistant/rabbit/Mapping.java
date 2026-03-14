@@ -54,6 +54,16 @@ public class Mapping {
         setRoutingKey(Key.DONATON);
         setQueueName(Queue.Configs.DONATON);
       }},
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey("event.HistoryItemEvent");
+        setQueueName(Queue.Donaton.EVENTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey("event.PaymentEvent");
+        setQueueName(Queue.Donaton.EVENTS);
+      }}
     });
 
   public static final List<QueueParams> FILES =
