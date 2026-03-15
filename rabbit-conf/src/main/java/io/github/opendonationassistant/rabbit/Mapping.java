@@ -8,7 +8,20 @@ import java.util.List;
 // prettier-ignore ON
 public class Mapping {
 
-  public static final List<QueueParams> ACTIONS = List.of();
+  public static final List<QueueParams> ACTIONS = Arrays.asList(
+    new QueueParams[] { 
+      new QueueParams() {{
+        setExchangeName(Exchange.HISTORY);
+        setRoutingKey("event.HistoryItemEvent");
+        setQueueName(Queue.Action.EVENTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey("event.PaymentEvent");
+        setQueueName(Queue.Action.EVENTS);
+      }},
+    }
+  );
 
   public static final List<QueueParams> WIDGETS =
     Arrays.asList(new QueueParams[] {

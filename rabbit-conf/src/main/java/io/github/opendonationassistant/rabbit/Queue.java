@@ -77,4 +77,10 @@ public class Queue {
     public static final String COMMAND = "donaton.command";
     public static final String EVENTS = "donaton.events";
   }
+
+  public static class Action {
+
+    public static final String COMMAND = "action.command";
+    public static final String EVENTS = "action.events";
+  }
 }
