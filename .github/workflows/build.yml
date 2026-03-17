@@ -80,4 +80,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}
+          tags: |  
+            ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}
+            ghcr.io/opendonationassistant/oda-${{ inputs.service }}:latest
