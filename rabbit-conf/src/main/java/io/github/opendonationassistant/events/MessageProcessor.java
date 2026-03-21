@@ -25,8 +25,7 @@ public class MessageProcessor {
     handlers
       .stream()
       .filter(handler -> handler.type().equals(type))
-      .findFirst()
-      .ifPresent(handler -> {
+      .forEach(handler -> {
         try {
           log.debug(
             "Found handler for message",
