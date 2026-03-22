@@ -93,7 +93,9 @@ jobs:
 
       - name: Update OpenAPI docs
         run: |
-          cp "target/classes/META-INF/swagger/*.yml" "docs/docs/api-reference/"
+          ls target/
+          ls target/classes/META-INF
+          cp target/classes/META-INF/swagger/*.yml docs/docs/api-reference/
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           cd docs/
