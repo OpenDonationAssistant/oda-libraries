@@ -40,6 +40,11 @@ public class Mapping {
         setQueueName(Queue.Configs.REEL);
       }},
       new QueueParams() {{
+        setExchangeName(Exchange.REEL);
+        setRoutingKey(Key.COMMAND);
+        setQueueName(Queue.Reel.COMMAND);
+      }},
+      new QueueParams() {{
         setExchangeName(Exchange.HISTORY);
         setRoutingKey("event.HistoryItemEvent");
         setQueueName(Queue.Reel.EVENTS);
