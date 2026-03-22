@@ -83,3 +83,20 @@ jobs:
           tags: |  
             ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}
             ghcr.io/opendonationassistant/oda-${{ inputs.service }}:latest
+
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+        with:
+          repository: opendonationassistant/docs
+          ssh-key: ${{ secrets.SSH_GITHUB_KEY }}
+          path: docs
+
+      - name: Update OpenAPI docs
+        run: |
+          cp "target/classes/META-INF/swagger/*.yml" "docs/docs/api-reference/"
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          cd docs/
+          git add api-reference/${{ inputs.service }}-${{ inputs.version }}.yml
+          git commit -m "docs: update ${{ inputs.service }} API spec"
+          git push
