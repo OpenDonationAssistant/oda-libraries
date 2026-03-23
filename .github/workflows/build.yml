@@ -93,12 +93,14 @@ jobs:
 
       - name: Update OpenAPI docs
         run: |
-          ls target/
-          ls target/classes/META-INF
-          cp target/classes/META-INF/swagger/*.yml docs/docs/api-reference/
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
-          cd docs/
-          git add api-reference/${{ inputs.service }}-${{ inputs.version }}.yml
-          git commit -m "docs: update ${{ inputs.service }} API spec"
-          git push
+          if ls target/classes/META-INF/swagger/*.yml 1>/dev/null 2>&1; then
+            cp target/classes/META-INF/swagger/*.yml docs/docs/api-reference/
+            git config user.name "${{ github.actor }}"
+            git config user.email "${{ github.actor }}@users.noreply.github.com"
+            cd docs/
+            git add api-reference/${{ inputs.service }}-${{ inputs.version }}.yml
+            git commit -m "docs: update ${{ inputs.service }} API spec"
+            git push
+          else
+            echo "No Swagger YAML files found."
+          fi
