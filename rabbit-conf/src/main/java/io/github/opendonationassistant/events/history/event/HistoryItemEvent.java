@@ -1,6 +1,7 @@
 package io.github.opendonationassistant.events.history.event;
 
 import io.github.opendonationassistant.commons.Amount;
+import io.github.opendonationassistant.events.HasRecipientId;
 import io.micronaut.serde.annotation.Serdeable;
 import java.time.Instant;
 import java.util.List;
@@ -21,7 +22,8 @@ public record HistoryItemEvent(
   List<String> goals,
   List<ActionRequest> actions,
   @Nullable Vote vote
-) {
+)
+  implements HasRecipientId {
   @Serdeable
   public static record ActionRequest(
     String id,

@@ -1,6 +1,7 @@
 package io.github.opendonationassistant.events.history;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
+import io.github.opendonationassistant.events.HasRecipientId;
 import io.github.opendonationassistant.rabbit.Exchange;
 import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.messaging.annotation.MessageHeader;
@@ -25,11 +26,16 @@ public class HistoryFacade {
     this.mapper = mapper;
   }
 
-  public CompletableFuture<Void> sendEvent(Object payload) {
+  public CompletableFuture<Void> sendEvent(HasRecipientId payload) {
     log.info("Send HistoryEvent", Map.of("payload", payload));
     var type = payload.getClass().getSimpleName();
     try {
-      return client.sendEvent(type, mapper.writeValueAsBytes(payload));
+      return client.sendEvent(
+        "event.%s".formatted(type),
+        type,
+        payload.recipientId(),
+        mapper.writeValueAsBytes(payload)
+      );
     } catch (Exception e) {
       log.error("Serialization error", Map.of("error", e.getMessage()));
       throw new RuntimeException(e);
@@ -49,24 +55,17 @@ public class HistoryFacade {
 
   @RabbitClient(Exchange.HISTORY)
   public static interface HistoryMessagingClient {
-    CompletableFuture<Void> send(
-      @Binding String binding,
+    @Binding(Key.COMMAND)
+    CompletableFuture<Void> sendCommand(
       @MessageHeader String type,
       byte[] command
     );
 
-    default CompletableFuture<Void> sendCommand(
+    CompletableFuture<Void> sendEvent(
+      @Binding String binding,
       @MessageHeader String type,
-      byte[] payload
-    ) {
-      return send(Key.COMMAND, type, payload);
-    }
-
-    default CompletableFuture<Void> sendEvent(
-      @MessageHeader String type,
-      byte[] payload
-    ) {
-      return send("event.%s".formatted(type), type, payload);
-    }
+      @MessageHeader String recipientId,
+      byte[] command
+    );
   }
 }
