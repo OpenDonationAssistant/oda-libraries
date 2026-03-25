@@ -1,5 +1,6 @@
 package io.github.opendonationassistant.events.history.event;
 
+import io.github.opendonationassistant.commons.Amount;
 import io.github.opendonationassistant.events.HasRecipientId;
 import io.micronaut.serde.annotation.Serdeable;
 import org.jspecify.annotations.Nullable;
@@ -11,6 +12,7 @@ public record GoalHistoryEvent(
   String recipientId,
   String widgetId,
   String goalId,
-  String title
+  String title,
+  Amount amount
 )
   implements HasRecipientId {}
