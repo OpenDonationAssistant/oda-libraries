@@ -29,7 +29,7 @@ public class MessageProcessor {
         try {
           log.debug(
             "Found handler for message",
-            Map.of("type", type, "handler", handler.getClass().getSimpleName())
+            Map.of("type", type, "handler", handler.getClass().getCanonicalName())
           );
           handler.handle(message);
           ack.ack();
