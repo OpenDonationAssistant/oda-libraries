@@ -1,8 +1,8 @@
 package io.github.opendonationassistant.events.widget;
 
-import org.jspecify.annotations.Nullable;
-
+import io.github.opendonationassistant.events.HasSource;
 import io.micronaut.serde.annotation.Serdeable;
+import org.jspecify.annotations.Nullable;
 
 @Serdeable
 public record WidgetChangedEvent(
@@ -10,4 +10,5 @@ public record WidgetChangedEvent(
   Widget widget,
   String source,
   @Nullable String originId
-) {}
+)
+  implements HasSource {}
