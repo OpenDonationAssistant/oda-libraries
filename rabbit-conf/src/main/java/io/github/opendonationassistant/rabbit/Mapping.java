@@ -185,6 +185,11 @@ public class Mapping {
         setExchangeName(Exchange.HISTORY);
         setRoutingKey("event.HistoryItemEvent");
         setQueueName(Queue.Automation.EVENTS);
+      }},
+      new QueueParams() {{
+        setExchangeName(Exchange.PAYMENTS);
+        setRoutingKey("event.PaymentEvent");
+        setQueueName(Queue.Automation.EVENTS);
       }}
   );
 
