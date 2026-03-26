@@ -98,7 +98,7 @@ jobs:
             git config user.name "${{ github.actor }}"
             git config user.email "${{ github.actor }}@users.noreply.github.com"
             cd docs/
-            git add api-reference/${{ inputs.service }}-${{ inputs.version }}.yml
+            git add api-reference
             git commit -m "docs: update ${{ inputs.service }} API spec"
             git push
           else
