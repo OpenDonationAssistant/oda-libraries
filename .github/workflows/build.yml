@@ -99,8 +99,12 @@ jobs:
             git config user.email "${{ github.actor }}@users.noreply.github.com"
             cd docs/
             git add api-reference
-            git commit -m "docs: update ${{ inputs.service }} API spec"
-            git push
+            if git diff --exit-code --cached --quiet; then
+              echo "No changes to commit"
+            else
+              git commit -m "docs: update ${{ inputs.service }} API spec"
+              git push
+            fi
           else
             echo "No Swagger YAML files found."
           fi
