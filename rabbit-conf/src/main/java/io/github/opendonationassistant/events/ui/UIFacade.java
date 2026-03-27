@@ -2,6 +2,7 @@ package io.github.opendonationassistant.events.ui;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
+import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import io.micronaut.serde.ObjectMapper;
@@ -34,6 +35,7 @@ public class UIFacade {
     try {
       return sender.sendEvent(
         "commands",
+        "WidgetCommand",
         mapper.writeValueAsBytes(Map.of("widgetId", widgetId))
       );
     } catch (IOException e) {
@@ -49,6 +51,7 @@ public class UIFacade {
     try {
       return sender.sendEvent(
         "%s.events".formatted(recipientId),
+        event.getClass().getSimpleName(),
         mapper.writeValueAsBytes(event)
       );
     } catch (IOException e) {
@@ -58,7 +61,11 @@ public class UIFacade {
 
   @RabbitClient(Exchange.AMQ_TOPIC)
   public static interface UIEventSender {
-    CompletableFuture<Void> sendEvent(@Binding String binding, byte[] message);
+    CompletableFuture<Void> sendEvent(
+      @Binding String binding,
+      @MessageHeader("type") String type,
+      byte[] message
+    );
   }
 
   @Serdeable
