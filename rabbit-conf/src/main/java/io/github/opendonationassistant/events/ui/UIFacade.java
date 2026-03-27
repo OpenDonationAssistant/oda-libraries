@@ -26,6 +26,21 @@ public class UIFacade {
     this.mapper = mapper;
   }
 
+  public CompletableFuture<Void> reload(String recipientId, String widgetId) {
+    log.debug(
+      "Reload UI",
+      Map.of("recipientId", recipientId, "widgetId", widgetId)
+    );
+    try {
+      return sender.sendEvent(
+        "commands",
+        mapper.writeValueAsBytes(Map.of("widgetId", widgetId))
+      );
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public CompletableFuture<Void> sendEvent(String recipientId, Event event) {
     log.debug(
       "Send message to UI",
