@@ -36,7 +36,9 @@ public class UIFacade {
       return sender.sendEvent(
         "commands",
         "WidgetCommand",
-        mapper.writeValueAsBytes(Map.of("widgetId", widgetId))
+        mapper.writeValueAsBytes(
+          Map.of("widgetId", widgetId, "command", "reload")
+        )
       );
     } catch (IOException e) {
       throw new RuntimeException(e);
