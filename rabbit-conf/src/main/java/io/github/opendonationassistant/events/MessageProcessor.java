@@ -26,13 +26,18 @@ public class MessageProcessor {
       .stream()
       .filter(handler -> handler.type().equals(type))
       .forEach(handler -> {
+        var handlerClass = handler.getClass().getCanonicalName();
         try {
           log.debug(
             "Found handler for message",
-            Map.of("type", type, "handler", handler.getClass().getCanonicalName())
+            Map.of("type", type, "handler", handlerClass)
           );
           handler.handle(message);
           ack.ack();
+          log.debug(
+            "Message processed",
+            Map.of("type", type, "handler", handlerClass)
+          );
         } catch (Exception e) {
           log.error(
             "Error processing message",
