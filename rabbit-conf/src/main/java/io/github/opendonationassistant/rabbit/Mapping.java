@@ -257,6 +257,7 @@ public class Mapping {
     result.addAll(TWITCH);
     result.addAll(AUTOMATION);
     result.addAll(HISTORY);
+    result.addAll(RECIPIENT);
     result.addAll(MEDIA);
     return result;
   }
