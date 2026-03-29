@@ -2,6 +2,16 @@ package io.github.opendonationassistant.rabbit;
 
 public class Queue {
 
+  private final String name;
+
+  public Queue(String name) {
+    this.name = name;
+  }
+
+  public String name() {
+    return name;
+  }
+
   public static class Commands {
 
     public static final String FILES = "commands.files";

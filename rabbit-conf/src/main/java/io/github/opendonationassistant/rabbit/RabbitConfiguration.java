@@ -3,11 +3,9 @@ package io.github.opendonationassistant.rabbit;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import io.micronaut.rabbitmq.connect.ChannelInitializer;
-import jakarta.inject.Singleton;
 import java.io.IOException;
 import java.util.HashMap;
 
-@Singleton
 public class RabbitConfiguration extends ChannelInitializer {
 
   // prettier-ignore ON
@@ -32,7 +30,6 @@ public class RabbitConfiguration extends ChannelInitializer {
   }
 
   // prettier-ignore OFF
-
   private void declareAndBind(Channel channel, QueueParams params) {
     try {
       channel.queueDeclare(
