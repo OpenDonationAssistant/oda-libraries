@@ -2,11 +2,16 @@ package io.github.opendonationassistant.rabbit;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
+
+import io.github.opendonationassistant.commons.logging.ODALogger;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Exchange {
+
+  private ODALogger log = new ODALogger(this);
 
   // просто потому что системный
   public static final String AMQ_TOPIC = "amq.topic";
@@ -85,6 +90,10 @@ public class Exchange {
     try {
       channel.queueDeclare(queueName, true, false, false, new HashMap<>());
       channel.queueBind(queueName, name, routingKey);
+      log.debug(
+        "Exchange bound",
+        Map.of("exchange", name, "queue", queueName, "routingKey", routingKey)
+      );
     } catch (IOException e) {
       e.printStackTrace();
     }
