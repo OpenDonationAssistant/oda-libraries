@@ -2,9 +2,7 @@ package io.github.opendonationassistant.rabbit;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
-
 import io.github.opendonationassistant.commons.logging.ODALogger;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +68,7 @@ public class Exchange {
 
   public void connect(Channel channel) {
     try {
+      log.debug("Declaring exchange", Map.of("exchange", name));
       channel.exchangeDeclare(name, BuiltinExchangeType.TOPIC);
     } catch (IOException e) {
       e.printStackTrace();
@@ -88,12 +87,12 @@ public class Exchange {
     String queueName
   ) {
     try {
-      channel.queueDeclare(queueName, true, false, false, new HashMap<>());
-      channel.queueBind(queueName, name, routingKey);
       log.debug(
-        "Exchange bound",
+        "Bounding exchange to queue",
         Map.of("exchange", name, "queue", queueName, "routingKey", routingKey)
       );
+      channel.queueDeclare(queueName, true, false, false, new HashMap<>());
+      channel.queueBind(queueName, name, routingKey);
     } catch (IOException e) {
       e.printStackTrace();
     }
