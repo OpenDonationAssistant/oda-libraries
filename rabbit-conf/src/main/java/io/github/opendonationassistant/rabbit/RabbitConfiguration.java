@@ -2,15 +2,20 @@ package io.github.opendonationassistant.rabbit;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
+import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.rabbitmq.connect.ChannelInitializer;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class RabbitConfiguration extends ChannelInitializer {
+
+  private ODALogger log = new ODALogger(this);
 
   // prettier-ignore ON
   @Override
   public void initialize(Channel channel, String name) throws IOException {
+    log.info("Initializing all exchanges in RabbitMQ", Map.of());
     channel.exchangeDeclare(Exchange.Configs.WIDGETS, BuiltinExchangeType.TOPIC);
     channel.exchangeDeclare(Exchange.PAYMENTS, BuiltinExchangeType.TOPIC);
     channel.exchangeDeclare(Exchange.GOALS, BuiltinExchangeType.TOPIC);

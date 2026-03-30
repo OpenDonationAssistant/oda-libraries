@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@Singleton
 public class AMQPConfiguration extends ChannelInitializer {
 
   private ODALogger log = new ODALogger(this);
