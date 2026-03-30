@@ -246,21 +246,6 @@ public class Mapping {
       }},
     });
 
-  public static final List<QueueParams> SUBSCRIPTIONS = Arrays.asList(
-    new QueueParams[] { 
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY);
-        setRoutingKey("event.HistoryItemEvent");
-        setQueueName("subscriptions.events");
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey("event.PaymentEvent");
-        setQueueName("subscriptions.events");
-      }},
-    }
-  );
-
   public static List<QueueParams> getQueues() {
     var result = new ArrayList<QueueParams>();
     result.addAll(ACTIONS);
@@ -274,7 +259,6 @@ public class Mapping {
     result.addAll(HISTORY);
     result.addAll(RECIPIENT);
     result.addAll(MEDIA);
-    result.addAll(SUBSCRIPTIONS);
     return result;
   }
 
