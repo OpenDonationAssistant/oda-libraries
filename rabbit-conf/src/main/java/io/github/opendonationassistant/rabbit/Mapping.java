@@ -8,21 +8,6 @@ import java.util.List;
 // prettier-ignore ON
 public class Mapping {
 
-  public static final List<QueueParams> ACTIONS = Arrays.asList(
-    new QueueParams[] { 
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY);
-        setRoutingKey("event.HistoryItemEvent");
-        setQueueName(Queue.Action.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey("event.PaymentEvent");
-        setQueueName(Queue.Action.EVENTS);
-      }},
-    }
-  );
-
   public static final List<QueueParams> WIDGETS =
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
@@ -198,40 +183,6 @@ public class Mapping {
       }}
   );
 
-  public static final List<QueueParams> HISTORY =
-    Arrays.asList(new QueueParams[] {
-      new QueueParams() {{
-        setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey("event.PaymentEvent");
-        setQueueName(Queue.History.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.TWITCH);
-        setRoutingKey("event.*");
-        setQueueName(Queue.History.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY); // TODO Should be Exchange.MEDIA
-        setRoutingKey("event.MediaHistoryEvent");
-        setQueueName(Queue.History.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY); // TODO Should be Exchange.MEDIA
-        setRoutingKey("event.ReelResultHistoryEvent");
-        setQueueName(Queue.History.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.DONATON);
-        setRoutingKey("event.DonatonDeadlineChanged");
-        setQueueName(Queue.History.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY);
-        setRoutingKey(Key.COMMAND);
-        setQueueName(Queue.History.COMMAND);
-      }}
-    });
-
   public static final List<QueueParams> MEDIA =
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
@@ -248,7 +199,6 @@ public class Mapping {
 
   public static List<QueueParams> getQueues() {
     var result = new ArrayList<QueueParams>();
-    result.addAll(ACTIONS);
     result.addAll(WIDGETS);
     result.addAll(REEL);
     result.addAll(DONATON);
@@ -256,7 +206,6 @@ public class Mapping {
     result.addAll(VOTING);
     result.addAll(TWITCH);
     result.addAll(AUTOMATION);
-    result.addAll(HISTORY);
     result.addAll(RECIPIENT);
     result.addAll(MEDIA);
     return result;
