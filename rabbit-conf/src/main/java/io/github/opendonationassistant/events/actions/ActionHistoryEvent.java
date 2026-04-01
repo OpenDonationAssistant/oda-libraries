@@ -13,6 +13,7 @@ public record ActionHistoryEvent(
   implements HasSource {
   @Serdeable
   public static record ActionRequest(
+    String id,
     String actionId,
     String name,
     Integer amount
