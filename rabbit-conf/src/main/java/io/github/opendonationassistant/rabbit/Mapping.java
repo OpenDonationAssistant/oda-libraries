@@ -97,11 +97,6 @@ public class Mapping {
       }},
       new QueueParams() {{
         setExchangeName(Exchange.GOALS);
-        setRoutingKey(Key.AFTERPAYMENT);
-        setQueueName(Queue.Automation.GOAL);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.GOALS);
         setRoutingKey(Key.AFTERAUTOMATION);
         setQueueName(Queue.Goal.CALCULATED);
       }},
@@ -150,39 +145,6 @@ public class Mapping {
       }}
     });
 
-  public static final List<QueueParams> AUTOMATION = List.of(
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY); // TODO Should be Exchange.MEDIA
-        setRoutingKey("event.MediaHistoryEvent");
-        setQueueName(Queue.Automation.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY); // TODO Should be Exchange.REEL
-        setRoutingKey("event.ReelResultHistoryEvent");
-        setQueueName(Queue.Automation.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY); // TODO Should be Exchange.GOALS
-        setRoutingKey("event.GoalHistoryEvent");
-        setQueueName(Queue.Automation.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.HISTORY);
-        setRoutingKey("event.HistoryItemEvent");
-        setQueueName(Queue.Automation.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.PAYMENTS);
-        setRoutingKey("event.PaymentEvent");
-        setQueueName(Queue.Automation.EVENTS);
-      }},
-      new QueueParams() {{
-        setExchangeName(Exchange.Configs.WIDGETS);
-        setRoutingKey("*");
-        setQueueName(Queue.Automation.EVENTS);
-      }}
-  );
-
   public static final List<QueueParams> MEDIA =
     Arrays.asList(new QueueParams[] {
       new QueueParams() {{
@@ -205,7 +167,6 @@ public class Mapping {
     result.addAll(GOALS);
     result.addAll(VOTING);
     result.addAll(TWITCH);
-    result.addAll(AUTOMATION);
     result.addAll(RECIPIENT);
     result.addAll(MEDIA);
     return result;
