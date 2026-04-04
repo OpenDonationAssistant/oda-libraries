@@ -3,7 +3,6 @@ package io.github.opendonationassistant.rabbit;
 import com.rabbitmq.client.Channel;
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.micronaut.rabbitmq.connect.ChannelInitializer;
-import jakarta.inject.Singleton;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;

@@ -47,6 +47,10 @@ public class Exchange {
     this.bindings = bindings;
   }
 
+  public String getName() {
+    return name;
+  }
+
   public static Exchange Exchange(String name, Map<String, Queue> bindings) {
     return new Exchange(name, bindings);
   }
