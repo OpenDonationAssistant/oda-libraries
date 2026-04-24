@@ -4,7 +4,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.events.HasRecipientId;
-import io.micronaut.rabbitmq.annotation.Binding;
+import io.micronaut.rabbitmq.connect.ChannelPool;
 import io.micronaut.serde.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,15 +14,15 @@ public class RabbitClient {
 
   private final ODALogger log = new ODALogger(this);
   private final String exchange;
-  private final Channel channel;
+  private final ChannelPool pool;
   private final ObjectMapper mapper;
 
   public RabbitClient(
-    Channel channel,
+    ChannelPool channel,
     ObjectMapper mapper,
-    @Binding String exchange
+    String exchange
   ) {
-    this.channel = channel;
+    this.pool = channel;
     this.exchange = exchange;
     this.mapper = mapper;
   }
@@ -82,7 +82,11 @@ public class RabbitClient {
       .headers(headers)
       .build();
 
-    channel.basicPublish(exchange, key, properties, message);
+    Channel channel = pool.getChannel();
+    try {
+      channel.basicPublish(exchange, key, properties, message);
+    } finally {
+      pool.returnChannel(channel);
+    }
   }
 }
-
