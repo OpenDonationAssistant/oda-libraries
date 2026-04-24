@@ -37,7 +37,11 @@ public class RabbitClient {
         "Sending command",
         Map.of("exchange", exchange, "type", type, "payload", payload)
       );
-      sendMessage(headers, "command", mapper.writeValueAsBytes(payload));
+      sendMessage(
+        headers,
+        "command.%s".formatted(type),
+        mapper.writeValueAsBytes(payload)
+      );
     } catch (Exception e) {
       log.error("Serialization error", Map.of("error", e.getMessage()));
       throw new RuntimeException(e);
