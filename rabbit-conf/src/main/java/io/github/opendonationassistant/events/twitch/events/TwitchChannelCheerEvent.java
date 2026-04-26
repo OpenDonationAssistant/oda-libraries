@@ -1,5 +1,6 @@
 package io.github.opendonationassistant.events.twitch.events;
 
+import io.github.opendonationassistant.events.HasRecipientId;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.annotation.Nullable;
 
@@ -10,4 +11,4 @@ public record TwitchChannelCheerEvent(
   @Nullable String username,
   String message,
   String bits
-) {}
+) implements HasRecipientId {}

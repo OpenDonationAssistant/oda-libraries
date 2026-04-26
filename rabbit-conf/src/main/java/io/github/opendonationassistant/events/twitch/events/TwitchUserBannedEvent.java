@@ -4,10 +4,9 @@ import io.github.opendonationassistant.events.HasRecipientId;
 import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
-public record TwitchChannelSubscribeEvent(
+public record TwitchUserBannedEvent(
   String id,
   String recipientId,
-  String username,
-  String tier,
-  Boolean isGift
+  String nickname,
+  Boolean permanent
 ) implements HasRecipientId {}

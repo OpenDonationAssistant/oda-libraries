@@ -1,5 +1,6 @@
 package io.github.opendonationassistant.events.twitch.events;
 
+import io.github.opendonationassistant.events.HasRecipientId;
 import io.micronaut.serde.annotation.Serdeable;
 import java.util.List;
 
@@ -13,7 +14,8 @@ public record TwitchChannelSubscriptionMessageEvent(
   Integer cumulativeMonths,
   Integer totalMonths,
   Integer streakMonths
-) {
+)
+  implements HasRecipientId {
   @Serdeable
   public static record Message(String text, List<Emote> emotes) {}
 
