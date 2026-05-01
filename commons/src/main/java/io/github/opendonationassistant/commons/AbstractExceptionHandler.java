@@ -15,8 +15,14 @@ public class AbstractExceptionHandler {
   protected void log(Exception exception, String id) {
     Arrays.asList(exception.getStackTrace())
       .stream()
-      .filter(element ->
-        element.getClassName().startsWith("io.github.opendonationassistant")
+      .filter(
+        element ->
+          element
+            .getClassName()
+            .startsWith("io.github.opendonationassistant") &&
+          !"io.github.opendonationassistant.commons.AbstractExceptionHandler".equals(
+              element.getClassName()
+            )
       )
       .findFirst()
       .ifPresentOrElse(
