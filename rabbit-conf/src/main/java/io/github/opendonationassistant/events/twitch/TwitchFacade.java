@@ -26,8 +26,8 @@ public class TwitchFacade {
   }
 
   public CompletableFuture<Void> sendEvent(Object payload) {
-    log.info("Send TwitchEvent", Map.of("payload", payload));
     var type = payload.getClass().getSimpleName();
+    log.info("Send TwitchEvent", Map.of("type", type, "payload", payload));
     try {
       return client.sendMessage(
         "event.%s".formatted(type),
