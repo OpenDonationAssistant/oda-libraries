@@ -16,6 +16,7 @@ public interface TwitchCommand {
   public static record LinkAccount(
     String recipientId,
     String twitchId,
-    String twitchLogin
+    String twitchLogin,
+    String refreshTokenId
   ) {}
 }

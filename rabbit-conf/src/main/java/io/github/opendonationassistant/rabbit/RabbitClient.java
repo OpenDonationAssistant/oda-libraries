@@ -86,6 +86,7 @@ public class RabbitClient {
       .headers(headers)
       .build();
 
+    log.info("Sending message", headers);
     Channel channel = pool.getChannel();
     try {
       channel.basicPublish(exchange, key, properties, message);
