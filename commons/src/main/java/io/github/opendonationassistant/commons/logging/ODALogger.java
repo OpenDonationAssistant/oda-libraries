@@ -2,6 +2,8 @@ package io.github.opendonationassistant.commons.logging;
 
 import io.github.opendonationassistant.commons.ToString;
 import java.util.Map;
+import java.util.function.Supplier;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
@@ -41,6 +43,15 @@ public class ODALogger {
     this.clear();
   }
 
+  public void info(String message, Supplier<Map<String, ?>> context) {
+    if (!log.isInfoEnabled()) {
+      return;
+    }
+    this.context(context.get());
+    this.log.info(message);
+    this.clear();
+  }
+
   public void debug(String message) {
     if (!log.isDebugEnabled()) {
       return;
@@ -53,6 +64,15 @@ public class ODALogger {
       return;
     }
     this.context(context);
+    this.log.debug(message);
+    this.clear();
+  }
+
+  public void debug(String message, Supplier<Map<String, ?>> context) {
+    if (!log.isDebugEnabled()) {
+      return;
+    }
+    this.context(context.get());
     this.log.debug(message);
     this.clear();
   }
@@ -73,6 +93,15 @@ public class ODALogger {
     this.clear();
   }
 
+  public void warn(String message, Supplier<Map<String, ?>> context) {
+    if (!log.isWarnEnabled()) {
+      return;
+    }
+    this.context(context.get());
+    this.log.warn(message);
+    this.clear();
+  }
+
   public void error(String message) {
     if (!log.isErrorEnabled()) {
       return;
@@ -85,6 +114,15 @@ public class ODALogger {
       return;
     }
     this.context(context);
+    this.log.error(message);
+    this.clear();
+  }
+
+  public void error(String message, Supplier<Map<String, ?>> context) {
+    if (!log.isErrorEnabled()) {
+      return;
+    }
+    this.context(context.get());
     this.log.error(message);
     this.clear();
   }
