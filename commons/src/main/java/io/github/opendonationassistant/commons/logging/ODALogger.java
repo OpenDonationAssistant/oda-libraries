@@ -25,6 +25,13 @@ public class ODALogger {
     MDC.remove("context");
   }
 
+  public void info(String message) {
+    if (!log.isInfoEnabled()) {
+      return;
+    }
+    this.log.info(message);
+  }
+
   public void info(String message, Map<String, ?> context) {
     if (!log.isInfoEnabled()) {
       return;
@@ -34,6 +41,13 @@ public class ODALogger {
     this.clear();
   }
 
+  public void debug(String message) {
+    if (!log.isDebugEnabled()) {
+      return;
+    }
+    this.log.debug(message);
+  }
+
   public void debug(String message, Map<String, ?> context) {
     if (!log.isDebugEnabled()) {
       return;
@@ -41,6 +55,29 @@ public class ODALogger {
     this.context(context);
     this.log.debug(message);
     this.clear();
+  }
+
+  public void warn(String message) {
+    if (!log.isWarnEnabled()) {
+      return;
+    }
+    this.log.warn(message);
+  }
+
+  public void warn(String message, Map<String, ?> context) {
+    if (!log.isWarnEnabled()) {
+      return;
+    }
+    this.context(context);
+    this.log.warn(message);
+    this.clear();
+  }
+
+  public void error(String message) {
+    if (!log.isErrorEnabled()) {
+      return;
+    }
+    this.log.error(message);
   }
 
   public void error(String message, Map<String, ?> context) {
