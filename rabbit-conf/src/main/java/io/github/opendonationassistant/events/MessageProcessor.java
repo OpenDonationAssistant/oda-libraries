@@ -39,10 +39,7 @@ public class MessageProcessor {
             Map.of("type", type, "handler", handlerClass)
           );
         } catch (Exception e) {
-          log.error(
-            "Error processing message",
-            Map.of("error", e.getLocalizedMessage())
-          );
+          log.error("Error processing message", e);
         }
       });
   }
