@@ -2,7 +2,6 @@ package io.github.opendonationassistant.commons.micronaut;
 
 import io.micronaut.security.authentication.Authentication;
 import java.util.Optional;
-
 import org.jspecify.annotations.Nullable;
 
 public abstract class BaseController {
@@ -14,4 +13,7 @@ public abstract class BaseController {
       .map(String::valueOf);
   }
 
+  protected Boolean isAdmin(@Nullable Authentication auth) {
+    return getOwnerId(auth).map(it -> "stcarolas".equals(it)).orElse(false);
+  }
 }
