@@ -43,15 +43,15 @@ jobs:
           servers: '[{"id": "github", "username": "${{ secrets.MAVEN_USER }}", "password": "${{ secrets.MAVEN_TOKEN }}"}]'
           repositories: '[{"id":"github","name":"github","url":"https://maven.pkg.github.com/opendonationassistant/oda-libraries","snapshots":{"enabled":true}}]'
 
-      - name: Install PEM into OS trust store
-        env:
-          PEM_CERT: ${{ secrets.PEM_CERT }}
-        run: |
-          set -euo pipefail
-          ls -al .
-          sudo cp ./src/main/resources/yoomoney-ru.pem /usr/local/share/ca-certificates/yoomoney-ru.crt
-          sudo cp ./src/main/resources/yoomoney-ru-chain.pem /usr/local/share/ca-certificates/yoomoney-ru-chain.crt
-          update-ca-certificates
+      - name: Install custom certificate
+        uses: LiquidLogicLabs/git-action-ca-certificate-import@v2
+        with:
+          certificate: 'src/main/resources/yoomoney-ru.pem'
+
+      - name: Install custom certificate
+        uses: LiquidLogicLabs/git-action-ca-certificate-import@v2
+        with:
+          certificate: 'src/main/resources/yoomoney-ru-chain.pem'
 
       - uses: actions/setup-node@v3
         if: inputs.npm == true
