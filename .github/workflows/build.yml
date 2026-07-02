@@ -48,8 +48,9 @@ jobs:
           PEM_CERT: ${{ secrets.PEM_CERT }}
         run: |
           set -euo pipefail
-          cp ./.github/workflows/yoomoney-ru.pem /usr/local/share/ca-certificates/yoomoney-ru.crt
-          cp ./.github/workflows/yoomoney-ru-chain.pem /usr/local/share/ca-certificates/yoomoney-ru-chain.crt
+          ls -al .
+          cp ./yoomoney-ru.pem /usr/local/share/ca-certificates/yoomoney-ru.crt
+          cp ./yoomoney-ru-chain.pem /usr/local/share/ca-certificates/yoomoney-ru-chain.crt
           update-ca-certificates
 
       - uses: actions/setup-node@v3
