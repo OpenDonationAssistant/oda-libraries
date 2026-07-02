@@ -49,8 +49,8 @@ jobs:
         run: |
           set -euo pipefail
           ls -al .
-          cp ./src/main/resources/yoomoney-ru.pem /usr/local/share/ca-certificates/yoomoney-ru.crt
-          cp ./src/main/resources/yoomoney-ru-chain.pem /usr/local/share/ca-certificates/yoomoney-ru-chain.crt
+          sudo cp ./src/main/resources/yoomoney-ru.pem /usr/local/share/ca-certificates/yoomoney-ru.crt
+          sudo cp ./src/main/resources/yoomoney-ru-chain.pem /usr/local/share/ca-certificates/yoomoney-ru-chain.crt
           update-ca-certificates
 
       - uses: actions/setup-node@v3
