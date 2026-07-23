@@ -1,6 +1,8 @@
 package io.github.opendonationassistant.commons.micronaut;
 
 import io.micronaut.security.authentication.Authentication;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import org.jspecify.annotations.Nullable;
 
@@ -14,6 +16,15 @@ public abstract class BaseController {
   }
 
   protected Boolean isAdmin(@Nullable Authentication auth) {
-    return getOwnerId(auth).map(it -> "stcarolas".equals(it)).orElse(false);
+    return Optional.ofNullable(auth)
+      .map(Authentication::getAttributes)
+      .map(it -> it.get("realm_access"))
+      .filter(Map.class::isInstance)
+      .map(Map.class::cast)
+      .map(it -> it.get("roles"))
+      .filter(Collection.class::isInstance)
+      .map(Collection.class::cast)
+      .map(it -> it.contains("oda-administrator"))
+      .orElse(false);
   }
 }
