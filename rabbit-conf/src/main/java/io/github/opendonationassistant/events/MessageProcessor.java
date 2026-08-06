@@ -33,7 +33,6 @@ public class MessageProcessor {
             Map.of("type", type, "handler", handlerClass)
           );
           handler.handle(message);
-          ack.ack();
           log.debug(
             "Message processed",
             Map.of("type", type, "handler", handlerClass)
@@ -42,5 +41,6 @@ public class MessageProcessor {
           log.error("Error processing message", e);
         }
       });
+    ack.ack();
   }
 }
