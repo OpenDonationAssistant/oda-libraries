@@ -22,25 +22,29 @@ public class MessageProcessor {
   @Transactional
   public void process(String type, byte[] message, RabbitAcknowledgement ack) {
     log.debug("Process message", Map.of("type", type));
-    handlers
+    var handler = handlers
       .stream()
-      .filter(handler -> handler.type().equals(type))
-      .forEach(handler -> {
-        var handlerClass = handler.getClass().getCanonicalName();
-        try {
-          log.debug(
-            "Found handler for message",
-            Map.of("type", type, "handler", handlerClass)
-          );
-          handler.handle(message);
-          log.debug(
-            "Message processed",
-            Map.of("type", type, "handler", handlerClass)
-          );
-        } catch (Exception e) {
-          log.error("Error processing message", e);
-        }
-      });
-    ack.ack();
+      .filter(it -> it.type().equals(type))
+      .findFirst();
+    if (handler.isEmpty()) {
+      log.debug("No handler found for message", Map.of("type", type));
+      ack.ack();
+      return;
+    }
+    var handlerClass = handler.get().getClass().getCanonicalName();
+    log.debug(
+      "Found handler for message",
+      Map.of("type", type, "handler", handlerClass)
+    );
+    try {
+      handler.get().handle(message);
+      log.debug(
+        "Message processed",
+        Map.of("type", type, "handler", handlerClass)
+      );
+      ack.ack();
+    } catch (Exception e) {
+      log.error("Error processing message", e);
+    }
   }
 }

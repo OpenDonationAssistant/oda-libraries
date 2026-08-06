@@ -72,7 +72,7 @@ public class MessageProcessorTest {
     verify(handler, never()).handle(any());
     verify(handler2, never()).handle(any());
     verify(handler3, never()).handle(any());
-    verify(ack, never()).ack();
+    verify(ack).ack();
   }
 
   @Test
@@ -120,9 +120,9 @@ public class MessageProcessorTest {
     processorWithDups.process("testType", message, ack);
 
     verify(handler).handle(eq(message));
-    verify(sameHandler).handle(eq(message));
+    verify(sameHandler, never()).handle(eq(message));
     verify(handler2, never()).handle(any());
     verify(handler3, never()).handle(any());
-    verify(ack, times(2)).ack();
+    verify(ack, times(1)).ack();
   }
 }
