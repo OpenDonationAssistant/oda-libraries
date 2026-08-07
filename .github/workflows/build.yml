@@ -96,3 +96,7 @@ jobs:
           else
             echo "No Swagger YAML files found."
           fi
+
+      - name: Send notification
+        run: |  
+          curl -d "oda-${{ inputs.service }}:${{ inputs.version }} builded" https://ntfy.sh/oda-builds
