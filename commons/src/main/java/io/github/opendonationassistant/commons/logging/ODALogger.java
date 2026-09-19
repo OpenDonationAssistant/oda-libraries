@@ -154,6 +154,30 @@ public class ODALogger {
     MDC.clear();
   }
 
+  public void error(String message, String recipientId, Exception exception) {
+    Arrays.asList(exception.getStackTrace())
+      .stream()
+      .filter(
+        element ->
+          element
+            .getClassName()
+            .startsWith("io.github.opendonationassistant") &&
+          !"io.github.opendonationassistant.commons.AbstractExceptionHandler".equals(
+              element.getClassName()
+            )
+      )
+      .findFirst()
+      .ifPresentOrElse(
+        element -> putMDC(element, exception),
+        () -> putMDC(exception.getStackTrace()[0], exception)
+      );
+    this.error(message, Map.of("recipientId", recipientId));
+    if (log.isDebugEnabled()) {
+      exception.printStackTrace();
+    }
+    MDC.clear();
+  }
+
   private void putMDC(StackTraceElement element, Exception exception) {
     MDC.put(
       "error",

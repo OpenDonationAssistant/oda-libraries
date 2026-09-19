@@ -1,10 +1,9 @@
 package io.github.opendonationassistant.rabbit;
 
-import java.util.UUID;
-
 import io.github.opendonationassistant.commons.AbstractExceptionHandler;
 import io.micronaut.rabbitmq.exception.RabbitListenerException;
 import io.micronaut.rabbitmq.exception.RabbitListenerExceptionHandler;
+import java.util.UUID;
 
 public class RabbitExceptionHandler
   extends AbstractExceptionHandler

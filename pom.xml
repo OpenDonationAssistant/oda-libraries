@@ -16,7 +16,7 @@
 
   <properties>
     <buildNumber>1</buildNumber>
-    <revision>0.11.${buildNumber}</revision>
+    <revision>0.12.${buildNumber}</revision>
     <maven.compiler.source>25</maven.compiler.source>
     <maven.compiler.target>25</maven.compiler.target>
     <jdk.version>25</jdk.version>
@@ -48,6 +48,7 @@
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -60,6 +61,7 @@
           </compilerArgs>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
