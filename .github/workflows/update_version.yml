@@ -27,8 +27,8 @@ jobs:
       - name: Update version
         uses: teunmooij/yaml@v1
         with:
-          from-file: 'scripts/deployment/${{ inputs.service }}.yml'
-          to-file: 'scripts/deployment/${{ inputs.service }}.yml'
+          from-file: 'scripts/apps/${{ inputs.service }}/deployment.yaml.j2'
+          to-file: 'scripts/apps/${{ inputs.service }}/deployment.yaml.j2'
           merge: '{ "spec.template.spec.containers[0].image": "ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}" }'
 
       - name: Commit & Push changes

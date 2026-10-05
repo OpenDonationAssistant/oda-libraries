@@ -32,13 +32,13 @@ jobs:
       packaging: ${{ inputs.packaging }}
       npm: ${{ inputs.npm }}
 
-  # update-deployment-configuration:
-  #   uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/update_version.yml@main'
-  #   needs: build-and-push
-  #   secrets: inherit
-  #   with:
-  #     service: ${{ inputs.service }}
-  #     version: ${{ inputs.version }}
+  update-deployment-configuration:
+    uses: 'OpenDonationAssistant/oda-libraries/.github/workflows/update_version.yml@main'
+    needs: build-and-push
+    secrets: inherit
+    with:
+      service: ${{ inputs.service }}
+      version: ${{ inputs.version }}
   #
   # deploy:
   #   uses: 'OpenDonationAssistant/oda-k3s-specs/.github/workflows/deploy.yml@main'
