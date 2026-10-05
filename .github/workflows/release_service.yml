@@ -33,7 +33,7 @@ jobs:
       npm: ${{ inputs.npm }}
 
   update-deployment-configuration:
-    uses: 'OpenDonationAssistant/oda-libraries/.github/workflows/update_version.yml@main'
+    uses: 'OpenDonationAssistant/oda-libraries/.github/workflows/update_version.yml@master'
     needs: build-and-push
     secrets: inherit
     with:
