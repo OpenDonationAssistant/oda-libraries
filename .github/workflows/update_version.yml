@@ -36,6 +36,6 @@ jobs:
           cd scripts
           git config --global user.email "stcarolas@gmail.com"
           git config --global user.name "stCarolas"
-          git commit -am "[skip ci] up ${{ inputs.service }} version to ${{ inputs.version }}"
+          git commit -am "up ${{ inputs.service }} version to ${{ inputs.version }}"
           git remote set-url origin https://${{ secrets.PUSH_TOKEN }}@github.com/OpenDonationAssistant/oda-k3s-specs
           git push
