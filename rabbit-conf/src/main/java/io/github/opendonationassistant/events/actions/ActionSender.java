@@ -3,7 +3,6 @@ package io.github.opendonationassistant.events.actions;
 import io.github.opendonationassistant.commons.Amount;
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
-import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
 import io.micronaut.serde.annotation.Serdeable;
@@ -24,7 +23,7 @@ public interface ActionSender {
 
   default CompletableFuture<Void> publishCreatedActions(List<Action> actions) {
     log.info("Send Actions", Map.of("actions", actions));
-    return internalSend(Key.FINALIZED, actions).thenRun(() ->
+    return internalSend("finalized", actions).thenRun(() ->
       log.debug("Actions Sent", Map.of("actions", actions))
     );
   }

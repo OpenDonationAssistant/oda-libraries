@@ -13,6 +13,7 @@ public record GoalHistoryEvent(
   String widgetId,
   String goalId,
   String title,
-  Amount amount
+  Amount amount,
+  @Nullable Amount requiredAmount
 )
   implements HasRecipientId {}

@@ -3,7 +3,6 @@ package io.github.opendonationassistant.events.goal;
 import io.github.opendonationassistant.commons.Amount;
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
-import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
@@ -49,7 +48,7 @@ public class GoalFacade {
 
   @RabbitClient(Exchange.GOALS)
   public static interface GoalCommandSender {
-    @Binding(Key.COMMAND)
+    @Binding("command")
     void sendCommand(@MessageHeader String type, byte[] command);
   }
 

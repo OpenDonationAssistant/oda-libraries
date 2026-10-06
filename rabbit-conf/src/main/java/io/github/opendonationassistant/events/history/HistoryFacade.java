@@ -3,7 +3,6 @@ package io.github.opendonationassistant.events.history;
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.events.HasRecipientId;
 import io.github.opendonationassistant.rabbit.Exchange;
-import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
@@ -55,7 +54,7 @@ public class HistoryFacade {
 
   @RabbitClient(Exchange.HISTORY)
   public static interface HistoryMessagingClient {
-    @Binding(Key.COMMAND)
+    @Binding("command")
     CompletableFuture<Void> sendCommand(
       @MessageHeader String type,
       byte[] command

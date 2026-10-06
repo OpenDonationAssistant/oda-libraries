@@ -2,7 +2,6 @@ package io.github.opendonationassistant.events.files;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
-import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
@@ -60,7 +59,7 @@ public class FilesFacade {
       @MessageHeader String type,
       byte[] payload
     ) {
-      return send(Key.COMMAND, type, payload);
+      return send("command", type, payload);
     }
 
     default CompletableFuture<Void> sendEvent(

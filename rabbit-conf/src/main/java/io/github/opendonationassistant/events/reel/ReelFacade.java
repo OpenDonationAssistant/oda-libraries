@@ -2,7 +2,6 @@ package io.github.opendonationassistant.events.reel;
 
 import io.github.opendonationassistant.commons.logging.ODALogger;
 import io.github.opendonationassistant.rabbit.Exchange;
-import io.github.opendonationassistant.rabbit.Key;
 import io.micronaut.messaging.annotation.MessageHeader;
 import io.micronaut.rabbitmq.annotation.Binding;
 import io.micronaut.rabbitmq.annotation.RabbitClient;
@@ -45,7 +44,7 @@ public class ReelFacade {
     log.info("Send ReelCommand", Map.of("type", type, "command", command));
     try {
       return client.sendMessage(
-        Key.COMMAND,
+        "command",
         type,
         mapper.writeValueAsBytes(command)
       );
