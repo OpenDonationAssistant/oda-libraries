@@ -25,16 +25,11 @@ jobs:
           path: "scripts"
 
       - name: Update version
-        env:
-          SERVICE: ${{ inputs.service }}
-          VERSION: ${{ inputs.version }}
-        run: |
-          file="scripts/apps/${SERVICE}/deployment.yaml.j2"
-          sed -i -E "s#(ghcr\.io/opendonationassistant/oda-${SERVICE}:)[^\"[:space:]]+#\1${VERSION}#" "$file"
-          if ! grep -qE "ghcr\.io/opendonationassistant/oda-${SERVICE}:${VERSION}([\"[:space:]]|$)" "$file"; then
-            echo "::error::Failed to update image tag for ${SERVICE} in ${file}"
-            exit 1
-          fi
+        uses: teunmooij/yaml@v1
+        with:
+          from-file: 'scripts/apps/${{ inputs.service }}/deployment.yaml.j2'
+          to-file: 'scripts/apps/${{ inputs.service }}/deployment.yaml.j2'
+          merge: '{ "spec.template.spec.containers[0].image": "ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}" }'
 
       - name: Commit & Push changes
         run: |
