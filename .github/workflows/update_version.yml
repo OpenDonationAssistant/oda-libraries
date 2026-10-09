@@ -25,11 +25,31 @@ jobs:
           path: "scripts"
 
       - name: Update version
-        uses: teunmooij/yaml@v1
-        with:
-          from-file: 'scripts/apps/${{ inputs.service }}/deployment.yaml.j2'
-          to-file: 'scripts/apps/${{ inputs.service }}/deployment.yaml.j2'
-          merge: '{ "spec.template.spec.containers[0].image": "ghcr.io/opendonationassistant/oda-${{ inputs.service }}:${{ inputs.version }}" }'
+        env:
+          SERVICE: ${{ inputs.service }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${VERSION}" ]]; then
+            echo "::error::version input is empty"
+            exit 1
+          fi
+
+          file="scripts/inventory/local/group_vars/k3s/${SERVICE}.yml"
+          if [[ ! -f "$file" ]]; then
+            echo "::error::Inventory file not found: $file"
+            exit 1
+          fi
+
+          key="${SERVICE//-/_}"
+          yq -i ".${key}.version = env(VERSION)" "$file"
+
+          actual="$(yq ".${key}.version" "$file")"
+          if [[ "$actual" != "$VERSION" ]]; then
+            echo "::error::Failed to update ${SERVICE} in ${file} (expected '${VERSION}', got '${actual}')"
+            exit 1
+          fi
 
       - name: Commit & Push changes
         run: |
