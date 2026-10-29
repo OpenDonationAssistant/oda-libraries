@@ -3,6 +3,7 @@ package io.github.opendonationassistant.commons.logging;
 import io.github.opendonationassistant.commons.ToString;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,7 +13,14 @@ import org.slf4j.MDC;
 
 public class ODALogger {
 
-  final org.slf4j.Logger log;
+  static final String CONTEXT_KEY = "context";
+  static final String ERROR_KEY = "error";
+
+  private static final String ODA_PACKAGE = "io.github.opendonationassistant";
+  private static final String EXCEPTION_HANDLER_CLASS =
+    "io.github.opendonationassistant.commons.AbstractExceptionHandler";
+
+  private final org.slf4j.Logger log;
 
   public ODALogger(Object context) {
     this.log = LoggerFactory.getLogger(context.getClass());
@@ -23,173 +31,135 @@ public class ODALogger {
   }
 
   public void context(Map<String, ?> context) {
-    MDC.put("context", ToString.asJson(context));
+    MDC.put(CONTEXT_KEY, ToString.asJson(context));
   }
 
   public void clear() {
-    MDC.remove("context");
+    MDC.remove(CONTEXT_KEY);
   }
 
   public void info(String message) {
-    if (!log.isInfoEnabled()) {
-      return;
-    }
-    this.log.info(message);
+    log.info(message);
   }
 
   public void info(String message, Map<String, ?> context) {
-    if (!log.isInfoEnabled()) {
-      return;
-    }
-    this.context(context);
-    this.log.info(message);
-    this.clear();
+    info(message, () -> context);
   }
 
   public void info(String message, Supplier<Map<String, ?>> context) {
     if (!log.isInfoEnabled()) {
       return;
     }
-    this.context(context.get());
-    this.log.info(message);
-    this.clear();
+    withContext(context, () -> log.info(message));
   }
 
   public void debug(String message) {
-    if (!log.isDebugEnabled()) {
-      return;
-    }
-    this.log.debug(message);
+    log.debug(message);
   }
 
   public void debug(String message, Map<String, ?> context) {
-    if (!log.isDebugEnabled()) {
-      return;
-    }
-    this.context(context);
-    this.log.debug(message);
-    this.clear();
+    debug(message, () -> context);
   }
 
   public void debug(String message, Supplier<Map<String, ?>> context) {
     if (!log.isDebugEnabled()) {
       return;
     }
-    this.context(context.get());
-    this.log.debug(message);
-    this.clear();
+    withContext(context, () -> log.debug(message));
   }
 
   public void warn(String message) {
-    if (!log.isWarnEnabled()) {
-      return;
-    }
-    this.log.warn(message);
+    log.warn(message);
   }
 
   public void warn(String message, Map<String, ?> context) {
-    if (!log.isWarnEnabled()) {
-      return;
-    }
-    this.context(context);
-    this.log.warn(message);
-    this.clear();
+    warn(message, () -> context);
   }
 
   public void warn(String message, Supplier<Map<String, ?>> context) {
     if (!log.isWarnEnabled()) {
       return;
     }
-    this.context(context.get());
-    this.log.warn(message);
-    this.clear();
+    withContext(context, () -> log.warn(message));
   }
 
   public void error(String message) {
-    if (!log.isErrorEnabled()) {
-      return;
-    }
-    this.log.error(message);
+    log.error(message);
   }
 
   public void error(String message, Map<String, ?> context) {
-    if (!log.isErrorEnabled()) {
-      return;
-    }
-    this.context(context);
-    this.log.error(message);
-    this.clear();
+    error(message, () -> context);
   }
 
   public void error(String message, Supplier<Map<String, ?>> context) {
     if (!log.isErrorEnabled()) {
       return;
     }
-    this.context(context.get());
-    this.log.error(message);
-    this.clear();
+    withContext(context, () -> log.error(message));
   }
 
   public void error(String message, Exception exception) {
-    Arrays.asList(exception.getStackTrace())
-      .stream()
-      .filter(
-        element ->
-          element
-            .getClassName()
-            .startsWith("io.github.opendonationassistant") &&
-          !"io.github.opendonationassistant.commons.AbstractExceptionHandler".equals(
-              element.getClassName()
-            )
-      )
-      .findFirst()
-      .ifPresentOrElse(
-        element -> putMDC(element, exception),
-        () -> putMDC(exception.getStackTrace()[0], exception)
-      );
-    log.error(message);
-    if (log.isDebugEnabled()) {
-      exception.printStackTrace();
-    }
-    MDC.clear();
+    logError(message, exception, Map.of());
   }
 
   public void error(String message, String recipientId, Exception exception) {
-    Arrays.asList(exception.getStackTrace())
-      .stream()
-      .filter(
-        element ->
-          element
-            .getClassName()
-            .startsWith("io.github.opendonationassistant") &&
-          !"io.github.opendonationassistant.commons.AbstractExceptionHandler".equals(
-              element.getClassName()
-            )
-      )
-      .findFirst()
-      .ifPresentOrElse(
-        element -> putMDC(element, exception),
-        () -> putMDC(exception.getStackTrace()[0], exception)
-      );
-    this.error(message, Map.of("recipientId", recipientId));
-    if (log.isDebugEnabled()) {
-      exception.printStackTrace();
-    }
-    MDC.clear();
+    logError(message, exception, Map.of("recipientId", recipientId));
   }
 
-  private void putMDC(StackTraceElement element, Exception exception) {
-    MDC.put(
-      "error",
-      """
-        {"message":"%s"},
-        {"location":"%s:%s"}
-      """.formatted(
-          collectErrorMessages(exception),
-          Optional.ofNullable(element.getClassName()).orElse("Unknown class"),
-          element.getLineNumber()
-        )
+  private void logError(String message, Exception exception, Map<String, ?> context) {
+    restore(
+      ERROR_KEY,
+      describeError(exception),
+      () -> {
+        if (context.isEmpty()) {
+          log.error(message, exception);
+        } else {
+          withContext(() -> context, () -> log.error(message, exception));
+        }
+      }
     );
+  }
+
+  private String describeError(Exception exception) {
+    var messages = String.join("; ", collectErrorMessages(exception));
+    var location = findRelevantFrame(exception)
+      .map(element ->
+        "%s:%s".formatted(
+            Optional.ofNullable(element.getClassName()).orElse("Unknown class"),
+            element.getLineNumber()
+          )
+      )
+      .orElse("Unknown location");
+    var payload = new LinkedHashMap<String, String>();
+    payload.put("message", messages);
+    payload.put("location", location);
+    return ToString.asJson(payload);
+  }
+
+  private static Optional<StackTraceElement> findRelevantFrame(Exception exception) {
+    return Arrays.stream(exception.getStackTrace())
+      .filter(element -> element.getClassName().startsWith(ODA_PACKAGE))
+      .filter(element -> !EXCEPTION_HANDLER_CLASS.equals(element.getClassName()))
+      .findFirst()
+      .or(() -> Arrays.stream(exception.getStackTrace()).findFirst());
+  }
+
+  private static void withContext(Supplier<Map<String, ?>> context, Runnable action) {
+    restore(CONTEXT_KEY, ToString.asJson(context.get()), action);
+  }
+
+  private static void restore(String key, String value, Runnable action) {
+    var previous = MDC.get(key);
+    MDC.put(key, value);
+    try {
+      action.run();
+    } finally {
+      if (previous == null) {
+        MDC.remove(key);
+      } else {
+        MDC.put(key, previous);
+      }
+    }
   }
 
   protected List<String> collectErrorMessages(Throwable exception) {
