@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish commons
-        run: mvn --batch-mode deploy -pl 'commons ' -DbuildNumber=${{ github.RUN_NUMBER }}
+        run: mvn --batch-mode deploy -pl 'commons' -DbuildNumber=${{ github.RUN_NUMBER }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
