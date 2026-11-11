@@ -40,8 +40,8 @@ jobs:
 
       - uses: s4u/maven-settings-action@v3.0.0
         with:
-          servers: '[{"id": "github", "username": "${{ secrets.MAVEN_USER }}", "password": "${{ secrets.MAVEN_TOKEN }}"}]'
-          repositories: '[{"id":"github","name":"github","url":"https://maven.pkg.github.com/opendonationassistant/oda-libraries","snapshots":{"enabled":true}}]'
+          servers: '[{"id": "github", "username": "${{ secrets.MAVEN_USER }}", "password": "${{ secrets.MAVEN_TOKEN }}"},{"id": "github-rabbitmq", "username": "${{ secrets.MAVEN_USER }}", "password": "${{ secrets.MAVEN_TOKEN }}"}]'
+          repositories: '[{"id":"github","name":"github","url":"https://maven.pkg.github.com/opendonationassistant/oda-libraries","snapshots":{"enabled":true}},{"id":"github-rabbitmq","name":"github-rabbitmq","url":"https://maven.pkg.github.com/stcarolas/micronaut-rabbitmq","snapshots":{"enabled":true}}]'
 
       - name: Analyze with Sonar
         env:
